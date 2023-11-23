@@ -1,0 +1,3 @@
+D:/Proga/LabaKPI/Laba1.1/out/build/x64-Debug/CMakeFiles/Laba1_1.dir
+D:/Proga/LabaKPI/Laba1.1/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+D:/Proga/LabaKPI/Laba1.1/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

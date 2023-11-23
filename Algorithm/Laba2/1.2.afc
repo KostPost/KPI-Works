@@ -1,0 +1,34 @@
+<!DOCTYPE AFC>
+<algorithm version="1.2">
+  <branch>
+    <io vars="x,y"/>
+    <if cond="x >= -1 &amp;&amp; x &lt;= 1">
+      <branch>
+        <if cond="y >= 0 &amp;&amp; y &lt;= 1">
+          <branch>
+            <if cond="0 > x">
+              <branch>
+                <process text="x = x * -1"/>
+              </branch>
+              <branch/>
+            </if>
+            <if cond="y >= x">
+              <branch>
+                <ou vars="належить"/>
+              </branch>
+              <branch>
+                <ou vars="не належить"/>
+              </branch>
+            </if>
+          </branch>
+          <branch>
+            <ou vars="не належить"/>
+          </branch>
+        </if>
+      </branch>
+      <branch>
+        <ou vars="не належить"/>
+      </branch>
+    </if>
+  </branch>
+</algorithm>
