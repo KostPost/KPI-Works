@@ -6,9 +6,9 @@
     <io vars="x"/>
     <pre cond="true">
       <branch>
-        <process text="sum = 2/(2n + 1)(2n + 3)"/>
+        <process text="sum += 2/(2n + 1)(2n + 3)"/>
+        <ou vars="Вивід Sum"/>
       </branch>
     </pre>
-    <ou vars="Вивід Sum"/>
   </branch>
 </algorithm>
