@@ -1,0 +1,20 @@
+<!DOCTYPE AFC>
+<algorithm version="1.2">
+  <branch>
+    <io vars="num"/>
+    <assign src="0" dest="res"/>
+    <if cond="num > 0">
+      <branch>
+        <pre cond="num > 0">
+          <branch>
+            <assign src="num % 2" dest="reminder"/>
+            <process text="res = reminder + res"/>
+            <process text="num /= 2"/>
+          </branch>
+        </pre>
+      </branch>
+      <branch/>
+    </if>
+    <ou vars="res"/>
+  </branch>
+</algorithm>
