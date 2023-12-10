@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-<<<<<<< HEAD
 #include <limits.h>
-=======
->>>>>>> origin/main
+
 
 
 
@@ -39,8 +37,7 @@ int Numbers(char roman_np_value)
 int main()
 {;
 
-<<<<<<< HEAD
-    printf("qwe");
+
 
     // long sum = 0,choice;
     // char RimNumToConvert[CHAR_MAX];
@@ -75,7 +72,6 @@ int main()
     //     }
 
     // }while(choice != 2);
-=======
     long sum = 0,choice;
     char RimNumToConvert[CHAR_MAX];
     do
@@ -109,6 +105,5 @@ int main()
         }
 
     }while(choice != 2);
->>>>>>> origin/main
 }
 
