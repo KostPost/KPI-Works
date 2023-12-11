@@ -1,4 +1,0 @@
-﻿  main.c
-D:\Proga\Laba1.5\Laba1.5\main.c(14,5): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-D:\Proga\Laba1.5\Laba1.5\main.c(23,9): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-D:\Proga\Laba1.5\Laba1.5\main.c(29,13): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
