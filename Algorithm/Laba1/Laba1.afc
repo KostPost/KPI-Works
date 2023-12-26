@@ -1,0 +1,16 @@
+<!DOCTYPE AFC>
+<algorithm version="1.2">
+  <branch>
+    <io vars="Введення чиста С"/>
+    <if cond="Перевірка чи число С тризначне">
+      <branch>
+        <process text="визначити другу цифру зліва"/>
+        <process text="зберегти другу цифру зліва у А"/>
+        <process text="видалити другу цифру зліва"/>
+        <process text="Додати у кінець С цифру А"/>
+        <ou vars="Вивід числа С"/>
+      </branch>
+      <branch/>
+    </if>
+  </branch>
+</algorithm>

@@ -1,21 +1,15 @@
 <!DOCTYPE AFC>
 <algorithm version="1.2">
   <branch>
-    <assign src="0" dest="n"/>
-    <assign src="0" dest="sum"/>
+    <ou vars="введення ↋"/>
+    <assign dest="sum" src="0"/>
+    <assign dest="n" src="1"/>
     <io vars="x"/>
-    <pre cond="true">
+    <pre cond="sum &lt;+ ↋">
       <branch>
-<<<<<<< HEAD
-        <process text="sum = 2/(2n + 1)(2n + 3)"/>
-      </branch>
-    </pre>
-    <ou vars="Вивід Sum"/>
-=======
         <process text="sum += 2/(2n + 1)(2n + 3)"/>
-        <ou vars="Вивід Sum"/>
+        <process text="n += 1"/>
       </branch>
     </pre>
->>>>>>> origin/main
   </branch>
 </algorithm>
