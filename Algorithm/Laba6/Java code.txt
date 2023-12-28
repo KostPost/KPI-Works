@@ -1,0 +1,49 @@
+public class ShellSort2DArray {
+    public static void main(String[] args) {
+        int[][] array = {
+                {9, 5, 2, 6, 3, 1, 4, 8},
+                {4, 8, 1, 7, 2, 9, 5, 3},
+                {7, 6, 3, 5, 8, 4, 2, 1},
+                {2, 3, 6, 1, 7, 8, 9, 4},
+                {5, 9, 4, 2, 6, 3, 8, 7}
+        };
+
+        System.out.println("Початковий масив:");
+        printArray(array);
+
+        shellSortByMinValues(array);
+
+        System.out.println("\nВідсортований масив за зростанням за мінімальними значеннями стовпців:");
+        printArray(array);
+    }
+
+    public static void shellSortByMinValues(int[][] arr) {
+        int rows = arr.length;
+        int cols = arr[0].length;
+
+        for (int c = 0; c < cols; c++) {
+            int gap = rows / 2;
+            while (gap > 0) {
+                for (int i = gap; i < rows; i++) {
+                    int temp = arr[i][c];
+                    int j = i;
+                    while (j >= gap && arr[j - gap][c] > temp) {
+                        arr[j][c] = arr[j - gap][c];
+                        j -= gap;
+                    }
+                    arr[j][c] = temp;
+                }
+                gap /= 2;
+            }
+        }
+    }
+
+    public static void printArray(int[][] arr) {
+        for (int[] row : arr) {
+            for (int num : row) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+    }
+}
