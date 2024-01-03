@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Laba1_9::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Laba1_9-Debug-341b9647d9e4f3fde49e.json",
+					"jsonFile" : "target-Laba1_9-Debug-7414885b5d1394ca4e2f.json",
 					"name" : "Laba1_9",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Proga/LabaKPI/Laba1.9/cmake-build-debug",
-		"source" : "D:/Proga/LabaKPI/Laba1.9"
+		"build" : "/home/Works-KPI/Proga/Laba1.9/cmake-build-debug",
+		"source" : "/home/Works-KPI/Proga/Laba1.9"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 6
 	}
 }

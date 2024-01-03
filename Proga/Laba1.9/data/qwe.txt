@@ -1,0 +1,3 @@
+Harkov 3 6
+Lvyv 3 3
+Kyiv 2 2
