@@ -14,10 +14,12 @@ struct rec {
     int square;
     int nas;
 };
+char *tempFilePath = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
+char *path = "/home/Works-KPI/Proga/Laba1.9/data";
 
 int compare(const void *a, const void *b) {
-    struct rec *rec1 = (struct rec *)a;
-    struct rec *rec2 = (struct rec *)b;
+    struct rec *rec1 = (struct rec *) a;
+    struct rec *rec2 = (struct rec *) b;
 
     // Змініть цей блок відповідно до вибору сортування
     // Наприклад, для сортування за назвою області (у зростаючому порядку):
@@ -25,8 +27,8 @@ int compare(const void *a, const void *b) {
 }
 
 int compare_name_asc(const void *a, const void *b) {
-    struct rec *rec1 = (struct rec *)a;
-    struct rec *rec2 = (struct rec *)b;
+    struct rec *rec1 = (struct rec *) a;
+    struct rec *rec2 = (struct rec *) b;
     return strcmp(rec1->name, rec2->name); // Сортування за назвою області у зростаючому порядку
 }
 int compare_name_desc(const void *a, const void *b) {
@@ -34,8 +36,8 @@ int compare_name_desc(const void *a, const void *b) {
 }
 
 int compare_square_asc(const void *a, const void *b) {
-    struct rec *rec1 = (struct rec *)a;
-    struct rec *rec2 = (struct rec *)b;
+    struct rec *rec1 = (struct rec *) a;
+    struct rec *rec2 = (struct rec *) b;
     return rec1->square - rec2->square; // Сортування за площею у зростаючому порядку
 }
 int compare_square_desc(const void *a, const void *b) {
@@ -43,38 +45,105 @@ int compare_square_desc(const void *a, const void *b) {
 }
 
 int compare_nas_asc(const void *a, const void *b) {
-    struct rec *rec1 = (struct rec *)a;
-    struct rec *rec2 = (struct rec *)b;
+    struct rec *rec1 = (struct rec *) a;
+    struct rec *rec2 = (struct rec *) b;
     return rec1->nas - rec2->nas; // Сортування за кількістю населення у зростаючому порядку
 }
-
 int compare_nas_desc(const void *a, const void *b) {
     return -compare_nas_asc(a, b); // Сортування за кількістю населення у спадаючому порядку
 }
 
-//char folderPath[256] = "/home/KPI-Works/Proga/Laba1.9/data";
-char *path = "/home/Works-KPI/Proga/Laba1.9/data";
 
-void seeAllFiles() {
-    DIR *dir;
-    struct dirent *entry;
+int compareFiles(const char *file1, const char *file2) {
+    FILE *fptr1, *fptr2;
+    char c1, c2;
 
-    dir = opendir(path);
+    fptr1 = fopen(file1, "r");
+    fptr2 = fopen(file2, "r");
 
-    if (dir != NULL) {
-
-
-        while ((entry = readdir(dir)) != NULL) {
-
-            if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
-                printf("%s\n", entry->d_name);
-            }
-        }
-    } else {
-        perror("Unable to open directory");
+    if (fptr1 == NULL || fptr2 == NULL) {
+        printf("Ошибка открытия файлов.\n");
+        return -1; // Ошибка открытия файлов
     }
 
-    closedir(dir);
+    do {
+        c1 = fgetc(fptr1);
+        c2 = fgetc(fptr2);
+
+        if (c1 != c2) {
+            fclose(fptr1);
+            fclose(fptr2);
+            return 0; // Файлы имеют различное содержимое
+        }
+    } while (c1 != EOF && c2 != EOF);
+
+    fclose(fptr1);
+    fclose(fptr2);
+
+    if (c1 == EOF && c2 == EOF) {
+        return 1; // Файлы имеют одинаковое содержимое
+    } else {
+        return 0; // Файлы имеют различное содержимое
+    }
+}
+
+char* insertInFile(const char *sourceFile) {
+    struct rec data[MAX_ENTRIES];
+
+    //qsort(data, count, sizeof(struct rec), compare_name_asc);
+    FILE *tempFile = fopen(tempFilePath, "r");
+    int count = 0;
+    while (fscanf(tempFile, "%39s %d %d", data[count].name, &data[count].square, &data[count].nas) == 3) {
+        count++;
+    }
+
+    for (int i = 0; i < 6; i++) {
+        int result = 0;
+        char* methodSort;
+
+
+        if(i == 0) {
+            qsort(data, count, sizeof(struct rec), compare_square_asc);
+            result = compareFiles(sourceFile, tempFilePath);
+            methodSort = "площа зростання";
+        }
+        else if(i == 1) {
+            qsort(data, count, sizeof(struct rec), compare_square_desc);
+            result = compareFiles(sourceFile, tempFilePath);
+            methodSort = "площа спадання";
+        }
+
+        else if(i == 2) {
+            qsort(data, count, sizeof(struct rec), compare_nas_asc);
+            result = compareFiles(sourceFile, tempFilePath);
+            methodSort = "населення зростання";
+        }
+        else if(i == 3) {
+            qsort(data, count, sizeof(struct rec), compare_nas_desc);
+            result = compareFiles(sourceFile, tempFilePath);
+            methodSort = "населення спадання";
+        }
+
+        else if(i == 4) {
+            qsort(data, count, sizeof(struct rec), compare_name_asc);
+            result = compareFiles(sourceFile, tempFilePath);
+            methodSort = "назва зростання";
+        }
+        else if(i == 5) {
+            qsort(data, count, sizeof(struct rec), compare_name_desc);
+            result = compareFiles(sourceFile, tempFilePath);
+            methodSort = "назва спадання";
+        }
+
+
+        if (result == 1) {
+            return methodSort;
+        } else {
+            printf("Файлы имеют различное содержимое.\n");
+        }
+    }
+
+    return "-";
 }
 
 int main() {
@@ -159,9 +228,13 @@ int main() {
                         printf("Enter the file number you want to select: ");
                         scanf("%d", &choiceFile);
 
-                        FILE *file;
+                        //FILE *file;
                         char full_path[256];
                         char *txtFile = files[choiceFile - 1];
+
+//                        for (int i = 0; i < count; ++i) {
+//                            free(files[i]);
+//                        }
 
                         strcpy(full_path, path);
                         strcat(full_path, "/");
@@ -287,7 +360,7 @@ int main() {
                                         fclose(file);
 
                                         printf("Data modified and written back to the file successfully.\n");
-                                    }else {
+                                    } else {
                                         printf("Invalid line number.\n");
                                     }
 
@@ -300,15 +373,10 @@ int main() {
                                     count = 0;
                                     int choice;
 
-                                    // Відкрити файл у режимі читання
                                     file = fopen(full_path, "r");
 
-                                    if (file == NULL) {
-                                        printf("Не вдалося відкрити файл.\n");
-                                        return 1;
-                                    }
-
-                                    while (fscanf(file, "%39s %d %d", data[count].name, &data[count].square, &data[count].nas) == 3) {
+                                    while (fscanf(file, "%39s %d %d", data[count].name, &data[count].square,
+                                                  &data[count].nas) == 3) {
                                         count++;
                                     }
 
@@ -362,7 +430,7 @@ int main() {
                                                     qsort(data, count, sizeof(struct rec), compare_square_asc);
                                                     break;
                                                 case 2:
-                                                    qsort(data, count, sizeof(struct rec), compare_square_asc);
+                                                    qsort(data, count, sizeof(struct rec), compare_square_desc);
                                                     break;
                                                 default:
                                                     printf("Невірний вибір напрямку сортування.\n");
@@ -422,12 +490,91 @@ int main() {
                                     break;
                                 }
 
-                            }
+                                case 5: {
+                                    const char *sourceFile = full_path;
+                                    const char *tempFile = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
 
-                            for (int i = 0; i < count; ++i) {
-                                free(files[i]);
-                            }
+                                    FILE *source, *destination;
+                                    char ch;
 
+                                    source = fopen(sourceFile, "r");
+                                    if (source == NULL) {
+                                        printf("Ошибка открытия файла %s\n", sourceFile);
+                                        break;
+                                    }
+
+                                    destination = fopen(tempFile, "w");
+                                    if (destination == NULL) {
+                                        fclose(source);
+                                        printf("Ошибка открытия файла %s\n", tempFile);
+                                        break;
+                                    }
+
+                                    while ((ch = fgetc(source)) != EOF) {
+                                        fputc(ch, destination);
+                                    }
+
+                                    printf("Содержимое из %s успешно скопировано в %s\n", sourceFile, tempFile);
+
+                                    fclose(source);
+                                    fclose(destination);
+
+
+                                    char* methodSort = insertInFile(sourceFile);
+                                    printf("\n\n%s",methodSort);
+
+
+
+                                    printf("Enter name: ");
+                                    scanf("%s", data_to_write.name);
+                                    printf("Enter square: ");
+                                    scanf("%d", &data_to_write.square);
+                                    printf("Enter nas: ");
+                                    scanf("%d", &data_to_write.nas);
+
+
+                                    file = fopen(full_path, "a");
+                                    struct rec data[MAX_ENTRIES];
+                                    count = 0;
+
+                                    fprintf(file, "%s %d %d\n", data_to_write.name, data_to_write.square,
+                                            data_to_write.nas);
+
+                                    while (fscanf(file, "%s %d %d", data[count].name, &data[count].square, &data[count].nas) == 3) {
+                                        count++;
+                                    }
+                                    fclose(file);
+
+
+                                    if (strcmp(methodSort, "площа зростання") == 0) {
+                                        qsort(data, count, sizeof(struct rec), compare_square_asc);
+                                    }
+                                    else if(strcmp(methodSort, "площа спадання") == 0){
+                                        qsort(data, count, sizeof(struct rec), compare_square_desc);
+                                    }
+                                    else if(strcmp(methodSort, "населення зростання") == 0){
+                                        qsort(data, count, sizeof(struct rec), compare_nas_asc);
+                                    }
+                                    else if(strcmp(methodSort, "населення спадання") == 0){
+                                        qsort(data, count, sizeof(struct rec), compare_nas_desc);
+                                    }
+                                    else if(strcmp(methodSort, "назва зростання") == 0){
+                                        qsort(data, count, sizeof(struct rec), compare_name_asc);
+                                    }
+                                    else if(strcmp(methodSort, "назва спадання\"") == 0){
+                                        qsort(data, count, sizeof(struct rec), compare_name_desc);
+                                    }
+
+
+                                    break;
+                                }
+
+                                case 6: {
+
+                                    break;
+                                }
+
+                            }
 
                         } while (actionFile != 7);
 
@@ -445,6 +592,7 @@ int main() {
         }
 
     } while (fileChoice != 4);
+
 
     return 1;
 }
