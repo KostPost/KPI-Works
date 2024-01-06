@@ -2,12 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
-#include <sys/stat.h>
 #include <stdbool.h>
-#include <time.h>
 
 #define MAX_FILES 100
 #define MAX_ENTRIES 100
+#define MAX_LINES 1000
 
 struct rec {
     char name[40];
@@ -16,15 +15,6 @@ struct rec {
 };
 char *tempFilePath = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
 char *path = "/home/Works-KPI/Proga/Laba1.9/data";
-
-int compare(const void *a, const void *b) {
-    struct rec *rec1 = (struct rec *) a;
-    struct rec *rec2 = (struct rec *) b;
-
-    // Змініть цей блок відповідно до вибору сортування
-    // Наприклад, для сортування за назвою області (у зростаючому порядку):
-    return strcmp(rec1->name, rec2->name);
-}
 
 int compare_name_asc(const void *a, const void *b) {
     struct rec *rec1 = (struct rec *) a;
@@ -86,7 +76,6 @@ int compareFiles(const char *file1, const char *file2) {
         return 0; // Файлы имеют различное содержимое
     }
 }
-
 char* insertInFile(const char *sourceFile) {
     struct rec data[MAX_ENTRIES];
 
@@ -149,7 +138,6 @@ char* insertInFile(const char *sourceFile) {
 int main() {
     int fileChoice, actionFile;
 
-
     FILE *file;
     DIR *directory = opendir(path);
     struct dirent *entry;
@@ -193,12 +181,10 @@ int main() {
                 } else {
                     printf("File already exist");
                 }
-
                 break;
             }
 
             case 2: {
-
                 DIR *dir;
                 struct dirent *ent;
                 char *files[MAX_FILES];
@@ -228,20 +214,12 @@ int main() {
                         printf("Enter the file number you want to select: ");
                         scanf("%d", &choiceFile);
 
-                        //FILE *file;
                         char full_path[256];
                         char *txtFile = files[choiceFile - 1];
-
-//                        for (int i = 0; i < count; ++i) {
-//                            free(files[i]);
-//                        }
 
                         strcpy(full_path, path);
                         strcat(full_path, "/");
                         strcat(full_path, txtFile);
-
-//                        printf("\nfull path = %s\n", full_path);
-//                        printf("choose file = %s\n\n", txtFile);
 
                         do {
                             printf("\n1 - Add data to file\n"
@@ -330,7 +308,6 @@ int main() {
                                         printf("Enter your choice: ");
                                         scanf("%d", &choice);
 
-                                        // Apply changes based on user input
                                         switch (choice) {
                                             case 1:
                                                 printf("Enter the new name: ");
@@ -369,7 +346,7 @@ int main() {
                                 }
 
                                 case 4: {
-                                    struct rec data[MAX_ENTRIES]; // Масив для даних
+                                    struct rec data[MAX_ENTRIES];
                                     count = 0;
                                     int choice;
 
@@ -382,25 +359,25 @@ int main() {
 
                                     fclose(file);
 
-                                    printf("Поточні дані:\n");
+                                    printf("Current data:\n");
                                     for (int i = 0; i < count; ++i) {
                                         printf("%s %d %d\n", data[i].name, data[i].square, data[i].nas);
                                     }
 
-                                    printf("Виберіть поле для сортування:\n");
-                                    printf("1. Назва області\n");
-                                    printf("2. Площа\n");
-                                    printf("3. Кількість населення\n");
-                                    printf("Ваш вибір: ");
+                                    printf("Choose a field for sorting:\n");
+                                    printf("1. Name of the region\n");
+                                    printf("2. Area\n");
+                                    printf("3. Population\n");
+                                    printf("Your choice: ");
                                     scanf("%d", &choice);
 
                                     switch (choice) {
                                         case 1: {
                                             int order;
-                                            printf("Виберіть напрямок сортування:\n");
-                                            printf("1. Зростання\n");
-                                            printf("2. Спадання\n");
-                                            printf("Ваш вибір: ");
+                                            printf("Select the sorting order:\n");
+                                            printf("1. Ascending\n");
+                                            printf("2. Descending\n");
+                                            printf("Your choice: ");
                                             scanf("%d", &order);
 
                                             switch (order) {
@@ -411,18 +388,18 @@ int main() {
                                                     qsort(data, count, sizeof(struct rec), compare_name_desc);
                                                     break;
                                                 default:
-                                                    printf("Невірний вибір напрямку сортування.\n");
-                                                    return 1;
+                                                    printf("Invalid sorting order choice.\n");
+                                                    break;
                                             }
                                             break;
                                         }
 
                                         case 2: {
                                             int order;
-                                            printf("Виберіть напрямок сортування:\n");
-                                            printf("1. Зростання\n");
-                                            printf("2. Спадання\n");
-                                            printf("Ваш вибір: ");
+                                            printf("Select the sorting order:\n");
+                                            printf("1. Ascending\n");
+                                            printf("2. Descending\n");
+                                            printf("Your choice: ");
                                             scanf("%d", &order);
 
                                             switch (order) {
@@ -433,8 +410,8 @@ int main() {
                                                     qsort(data, count, sizeof(struct rec), compare_square_desc);
                                                     break;
                                                 default:
-                                                    printf("Невірний вибір напрямку сортування.\n");
-                                                    return 1;
+                                                    printf("Invalid sorting order choice.\n");
+                                                    break;
                                             }
 
                                             break;
@@ -442,10 +419,10 @@ int main() {
 
                                         case 3: {
                                             int order;
-                                            printf("Виберіть напрямок сортування:\n");
-                                            printf("1. Зростання\n");
-                                            printf("2. Спадання\n");
-                                            printf("Ваш вибір: ");
+                                            printf("Select the sorting order:\n");
+                                            printf("1. Ascending\n");
+                                            printf("2. Descending\n");
+                                            printf("Your choice: ");
                                             scanf("%d", &order);
 
                                             switch (order) {
@@ -456,36 +433,32 @@ int main() {
                                                     qsort(data, count, sizeof(struct rec), compare_nas_desc);
                                                     break;
                                                 default:
-                                                    printf("Невірний вибір напрямку сортування.\n");
-                                                    return 1;
+                                                    printf("Invalid sorting order choice.\n");
+                                                    break;
                                             }
 
                                             break;
                                         }
 
                                         default:
-                                            printf("Невірний вибір.\n");
+                                            printf("Invalid choice.\n");
                                             return 1;
                                     }
 
-                                    // Відкрити файл у режимі запису, щоб записати впорядковані дані
                                     file = fopen(full_path, "w");
 
                                     if (file == NULL) {
-                                        printf("Не вдалося відкрити файл.\n");
-                                        return 1;
+                                        printf("Failed to open the file.\n");
+                                        break;
                                     }
 
-                                    // Запис впорядкованих даних у файл
                                     for (int i = 0; i < count; ++i) {
                                         fprintf(file, "%s %d %d\n", data[i].name, data[i].square, data[i].nas);
                                     }
 
-                                    // Закрити файл
                                     fclose(file);
 
-                                    printf("Дані впорядковано і записано назад у файл успішно.\n");
-
+                                    printf("Data sorted and written back to the file successfully.\n");
 
                                     break;
                                 }
@@ -499,30 +472,29 @@ int main() {
 
                                     source = fopen(sourceFile, "r");
                                     if (source == NULL) {
-                                        printf("Ошибка открытия файла %s\n", sourceFile);
+                                        printf("Error opening file %s\n", sourceFile);
                                         break;
                                     }
 
                                     destination = fopen(tempFile, "w");
                                     if (destination == NULL) {
                                         fclose(source);
-                                        printf("Ошибка открытия файла %s\n", tempFile);
+                                        printf("Error opening file %s\n", tempFile);
                                         break;
                                     }
+
 
                                     while ((ch = fgetc(source)) != EOF) {
                                         fputc(ch, destination);
                                     }
 
-                                    printf("Содержимое из %s успешно скопировано в %s\n", sourceFile, tempFile);
+                                    printf("Content from %s successfully copied to %s\n", sourceFile, tempFile);
 
                                     fclose(source);
                                     fclose(destination);
 
-
-                                    char* methodSort = insertInFile(sourceFile);
-                                    printf("\n\n%s",methodSort);
-
+                                    char *methodSort = insertInFile(sourceFile);
+                                    printf("\n\n%s\n\n", methodSort);
 
                                     file = fopen(full_path, "a");
                                     printf("Enter name: ");
@@ -537,12 +509,11 @@ int main() {
 
                                     struct rec data[MAX_ENTRIES];
                                     count = 0;
-                                    int choice;
 
-                                    while (fscanf(file, "%s %d %d", data[count].name, &data[count].square, &data[count].nas) == 3) {
+                                    while (fscanf(file, "%s %d %d", data[count].name, &data[count].square,
+                                                  &data[count].nas) == 3) {
                                         count++;
                                     }
-                                    fclose(file);
 
                                     file = fopen(full_path, "r");
                                     while (fscanf(file, "%39s %d %d", data[count].name, &data[count].square,
@@ -551,46 +522,84 @@ int main() {
                                     }
                                     fclose(file);
 
-
                                     if (strcmp(methodSort, "площа зростання") == 0) {
                                         qsort(data, count, sizeof(struct rec), compare_square_asc);
-                                    }
-                                    else if(strcmp(methodSort, "площа спадання") == 0){
+                                    } else if (strcmp(methodSort, "площа спадання") == 0) {
                                         qsort(data, count, sizeof(struct rec), compare_square_desc);
-                                    }
-                                    else if(strcmp(methodSort, "населення зростання") == 0){
+                                    } else if (strcmp(methodSort, "населення зростання") == 0) {
                                         qsort(data, count, sizeof(struct rec), compare_nas_asc);
-                                    }
-                                    else if(strcmp(methodSort, "населення спадання") == 0){
+                                    } else if (strcmp(methodSort, "населення спадання") == 0) {
                                         qsort(data, count, sizeof(struct rec), compare_nas_desc);
-                                    }
-                                    else if(strcmp(methodSort, "назва зростання") == 0){
+                                    } else if (strcmp(methodSort, "назва зростання") == 0) {
                                         qsort(data, count, sizeof(struct rec), compare_name_asc);
-                                    }
-                                    else if(strcmp(methodSort, "назва спадання\"") == 0){
+                                    } else if (strcmp(methodSort, "назва спадання\"") == 0) {
                                         qsort(data, count, sizeof(struct rec), compare_name_desc);
                                     }
 
                                     file = fopen(full_path, "w");
 
                                     if (file == NULL) {
-                                        printf("Не вдалося відкрити файл.\n");
-                                        return 1;
+                                        printf("Failed to open the file.\n");
+                                        break;
                                     }
-                                                // qwe
                                     for (int i = 0; i < count; ++i) {
                                         fprintf(file, "%s %d %d\n", data[i].name, data[i].square, data[i].nas);
                                     }
 
                                     fclose(file);
-
-                                    printf("Дані впорядковано і записано назад у файл успішно.\n");
-
+                                    printf("Data sorted and written back to the file successfully.\n");
 
                                     break;
                                 }
 
                                 case 6: {
+                                    struct rec records[MAX_LINES];
+                                    count = 0;
+                                    int choice, i;
+
+                                    file = fopen(full_path, "r");
+                                    if (file == NULL) {
+                                        printf("Failed to open the file.\n");
+                                        break;
+                                    }
+
+                                    while (fscanf(file, "%39s %d %d", records[count].name, &records[count].square,
+                                                  &records[count].nas) == 3) {
+                                        count++;
+                                    }
+
+                                    fclose(file);
+
+                                    printf("Available lines in the file:\n");
+                                    for (i = 0; i < count; ++i) {
+                                        printf("%d. %s %d %d\n", i + 1, records[i].name, records[i].square,
+                                               records[i].nas);
+                                    }
+
+                                    printf("Select the line number to delete: ");
+                                    scanf("%d", &choice);
+
+                                    if (choice < 1 || choice > count) {
+                                        printf("Invalid line number.\n");
+                                        break;
+                                    }
+
+                                    for (i = choice - 1; i < count - 1; ++i) {
+                                        records[i] = records[i + 1];
+                                    }
+                                    count--;
+
+                                    file = fopen(full_path, "w");
+                                    if (file == NULL) {
+                                        printf("Failed to open the file for writing.\n");
+                                        return 1;
+                                    }
+                                    for (i = 0; i < count; ++i) {
+                                        fprintf(file, "%s %d %d\n", records[i].name, records[i].square, records[i].nas);
+                                    }
+                                    fclose(file);
+
+                                    printf("The line has been successfully deleted.\n");
 
                                     break;
                                 }
@@ -605,6 +614,60 @@ int main() {
                     }
 
                 }
+
+                break;
+            }
+
+            case 3: {
+                DIR *dir;
+                int choice;
+
+                dir = opendir(path);
+                if (dir == NULL) {
+                    perror("Не вдалося відкрити папку");
+                    return EXIT_FAILURE;
+                }
+
+                printf("Доступні файли:\n");
+                int file_count = 0;
+                // Виведення усіх файлів у директорії з номерами
+                while ((entry = readdir(dir)) != NULL) {
+                    if (entry->d_type == DT_REG) {  // Перевірка, що це файл
+                        file_count++;
+                        printf("%d. %s\n", file_count, entry->d_name);
+                    }
+                }
+                closedir(dir);
+
+                printf("Виберіть файл, який потрібно видалити (введіть номер): ");
+                scanf("%d", &choice);
+
+                // Повторне відкриття директорії
+                dir = opendir(path);
+                if (dir == NULL) {
+                    perror("Не вдалося відкрити папку");
+                    return EXIT_FAILURE;
+                }
+
+                file_count = 0;
+                // Знаходження обраного файлу за номером
+                while ((entry = readdir(dir)) != NULL) {
+                    if (entry->d_type == DT_REG) {
+                        file_count++;
+                        if (file_count == choice) {
+                            char filepath[100];  // Шлях до файлу
+                            snprintf(filepath, sizeof(filepath), "%s/%s", path, entry->d_name);
+                            // Видалення файлу
+                            if (remove(filepath) != 0) {
+                                perror("Помилка видалення файлу");
+                                return EXIT_FAILURE;
+                            }
+                            printf("Файл \"%s\" був успішно видалений.\n", entry->d_name);
+                            break;
+                        }
+                    }
+                }
+                closedir(dir);
 
                 break;
             }
