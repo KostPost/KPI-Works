@@ -1,4 +1,4 @@
-"C:\Users\KostPost\CLion 2023.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/KostPost/CLion 2023.2.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S D:\Proga\LabaKPI\Laba1.3 -B D:\Proga\LabaKPI\Laba1.3\cmake-build-debug
+/snap/clion/261/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/261/bin/ninja/linux/x64/ninja -G Ninja -S /home/Works-KPI/Proga/Laba1.3 -B /home/Works-KPI/Proga/Laba1.3/cmake-build-debug
 -- Configuring done (0.0s)
 -- Generating done (0.0s)
--- Build files have been written to: D:/Proga/LabaKPI/Laba1.3/cmake-build-debug
+-- Build files have been written to: /home/Works-KPI/Proga/Laba1.3/cmake-build-debug

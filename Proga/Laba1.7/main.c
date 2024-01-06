@@ -1,27 +1,24 @@
 #include <stdio.h>
 #include <math.h>
 
-// The function we want to find the root for
 double f(double x, double y) {
     return cos(y / x) - 2 * sin(1 / x) + 1 / x;
 }
 
-// The derivative of the function with respect to x
 double df_dx(double x, double y) {
-    double h = 1e-5; // A small increment for calculating the derivative
+    double h = 1e-5;
     return (f(x + h, y) - f(x, y)) / h;
 }
 
-// The derivative of the function with respect to y
 double df_dy(double x, double y) {
-    double h = 1e-5; // A small increment for calculating the derivative
+    double h = 1e-5;
     return (f(x, y + h) - f(x, y)) / h;
 }
 
 int main() {
-    double a1, a2; // Start and end of the interval [a1, a2]
-    double epsilon; // Tolerance
-    double x0, y0; // Initial approximation
+    double a1, a2;
+    double epsilon;
+    double x0, y0;
 
     printf("Enter the start of the interval (a1): ");
     scanf("%lf", &a1);

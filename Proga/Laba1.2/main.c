@@ -3,8 +3,6 @@
 
 
 int main() {
-
-
     double aSide, bSide = 0, cSide = 0;
     double square;
     double perimeter, semiPerimeter;
@@ -14,9 +12,7 @@ int main() {
 
             printf("1 - Start program\n2 - Exit\n");
             if (scanf("%d", &choice) != 1) {
-                // Очистка буфера ввода в случае неверного ввода
                 while (getchar() != '\n');
-                printf("Неверный ввод. Пожалуйста, введите 1 или 2.\n");
                 continue;
             }
 
@@ -75,7 +71,7 @@ int main() {
             printf("This triangle doesn't exist");
         }
 
-    } while (1);
+    } while (choice != 2);
 
 
     return 0;

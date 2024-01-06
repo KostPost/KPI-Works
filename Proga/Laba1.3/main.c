@@ -182,9 +182,9 @@ void CubicEquation_3_3(){
     printf("Enter c:6");
     scanf("%lf", &c);
 
-    double left = -1000.0; // Ліва границя для пошуку кореня
-    double right = 1000.0; // Права границя для пошуку кореня
-    double epsilon = 0.00001; // Точність розв'язання
+    double left = -1000.0;
+    double right = 1000.0;
+    double epsilon = 0.00001;
 
     double root = findRoot(a, b, c, left, right, epsilon);
 

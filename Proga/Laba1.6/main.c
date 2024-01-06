@@ -10,18 +10,16 @@ void printVector(double* vector, int size) {
 }
 
 int main() {
-    int n; // Number of equations and unknowns
+    int n;
     printf("Enter the number of equations and unknowns (n): ");
     scanf("%d", &n);
 
-    // Declare and initialize matrix A and vector b
     double** A = (double**)malloc(n * sizeof(double*));
     for (int i = 0; i < n; i++) {
         A[i] = (double*)malloc(n * sizeof(double));
     }
     double* b = (double*)malloc(n * sizeof(double));
 
-    // Input coefficients of matrix A and vector b
     printf("Enter the coefficients of matrix A and vector b:\n");
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -32,12 +30,10 @@ int main() {
         scanf("%lf", &b[i]);
     }
 
-    // Input the parameter for accuracy
     double epsilon;
     printf("Enter the parameter for accuracy (epsilon): ");
     scanf("%lf", &epsilon);
 
-    // Declare and initialize the initial guess vector x
     double* x = (double*)malloc(n * sizeof(double));
     for (int i = 0; i < n; i++) {
         x[i] = 0.0;
@@ -47,9 +43,8 @@ int main() {
     printf("Enter the maximum number of iterations: ");
     scanf("%d", &maxIterations);
 
-    // Simple iteration method
     int iterations = 0;
-    double prop = 0.0; // Parameter prop
+    double prop = 0.0;
     while (iterations < maxIterations) {
         double* xNew = (double*)malloc(n * sizeof(double));
         double maxDelta = 0.0; // Maximum value of deltai
@@ -63,24 +58,20 @@ int main() {
             }
             xNew[i] = (b[i] - sum) / A[i][i];
 
-            // Calculate deltai
             double deltai = fabs(xNew[i] - x[i]);
             if (deltai > maxDelta) {
                 maxDelta = deltai;
             }
         }
 
-        // Calculate the parameter prop
         prop = maxDelta;
 
-        // Check for convergence based on accuracy
         if (prop < epsilon) {
             printf("Solution found with the specified accuracy:\n");
             printVector(xNew, n);
             break;
         }
 
-        // Prepare for the next iteration
         for (int i = 0; i < n; i++) {
             x[i] = xNew[i];
         }

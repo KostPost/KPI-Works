@@ -13,8 +13,11 @@ struct rec {
     int square;
     int nas;
 };
-char *tempFilePath = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
-char *path = "/home/Works-KPI/Proga/Laba1.9/data";
+//char *tempFilePath = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
+//char *path = "/home/Works-KPI/Proga/Laba1.9/data";
+
+char tempFilePath[100] = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
+char path[100] = "/home/Works-KPI/Proga/Laba1.9/data";
 
 int compare_name_asc(const void *a, const void *b) {
     struct rec *rec1 = (struct rec *) a;
@@ -672,11 +675,9 @@ int main() {
                 break;
             }
 
-
         }
 
     } while (fileChoice != 4);
-
 
     return 1;
 }

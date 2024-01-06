@@ -3,6 +3,6 @@ project(Laba1_3 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(Laba1_3 main.c
-        qwe.c
-)
+add_executable(Laba1_3 main.c)
+
+target_link_libraries(Laba1_3 m)

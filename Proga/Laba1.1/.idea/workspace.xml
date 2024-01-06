@@ -20,32 +20,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="544cf69c-e26b-4b3e-9fef-46df652bba70" name="Changes" comment="fix Laba 1.1">
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Laba1_1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Laba1_1.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/CMakeFiles/Laba1_4.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/CMakeFiles/Laba1_4.dir/main.c.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/Laba1_4.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/Laba1_4.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.4/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.4/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.4/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-007f53ae3ee5afa67a3b.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-5759054729aec9745ab9.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.cmake/api/v1/reply/index-2023-10-30T23-40-46-0117.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.cmake/api/v1/reply/target-Laba1_7-Debug-ebc5ed077a4d20a88f2c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/Laba1_7.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/Laba1_7.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laba1.7/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Laba1.7/main.c" afterDir="false" />
-    </list>
+    <list default="true" id="544cf69c-e26b-4b3e-9fef-46df652bba70" name="Changes" comment="fix Laba 1.1" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +31,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -71,25 +46,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Proga/LabaKPI/Laba1.2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "structure.view.defaults.are.configured": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;CMake Application.Laba1_1.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/Works-KPI/Proga/Laba1.2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Laba1_1" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Laba1_1" TARGET_NAME="Laba1_1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Laba1_1" RUN_TARGET_NAME="Laba1_1">
       <method v="2">
@@ -110,6 +88,8 @@
       <workItem from="1697552618847" duration="6000" />
       <workItem from="1698317301990" duration="848000" />
       <workItem from="1700745588112" duration="25000" />
+      <workItem from="1704579562208" duration="34000" />
+      <workItem from="1704579917398" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="fix Laba 1.1">
       <option name="closed" value="true" />
@@ -126,10 +106,9 @@
     <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
-    <isAutomaticEditVcpkgJson value="false" />
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
-    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix Laba 1.1" />

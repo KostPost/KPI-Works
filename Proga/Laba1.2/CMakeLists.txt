@@ -4,3 +4,5 @@ project(Laba1_2 C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(Laba1_2 main.c)
+
+target_link_libraries(Laba1_2 m)
