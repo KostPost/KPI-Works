@@ -63,7 +63,7 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/Works-KPI/Proga/Laba1.8",
+    "last_opened_file_path": "/home/Works-KPI/Proga/Laba1.9",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -106,6 +106,7 @@
       <workItem from="1700687614146" duration="20000" />
       <workItem from="1704319292367" duration="5918000" />
       <workItem from="1704410497753" duration="7525000" />
+      <workItem from="1704649776122" duration="11678000" />
     </task>
     <servers />
   </component>

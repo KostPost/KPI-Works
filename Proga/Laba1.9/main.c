@@ -7,16 +7,22 @@
 #define MAX_FILES 100
 #define MAX_ENTRIES 100
 #define MAX_LINES 1000
+#define MAX_RECORDS 100
+#define MAX_NAME_LENGTH 40
 
 struct rec {
     char name[40];
     int square;
     int nas;
 };
+
+struct sort {
+    char sortingMethod[40];
+    char sortingWay[40];
+};
 //char *tempFilePath = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
 //char *path = "/home/Works-KPI/Proga/Laba1.9/data";
 
-char tempFilePath[100] = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
 char path[100] = "/home/Works-KPI/Proga/Laba1.9/data";
 
 int compare_name_asc(const void *a, const void *b) {
@@ -46,100 +52,143 @@ int compare_nas_desc(const void *a, const void *b) {
     return -compare_nas_asc(a, b); // Сортування за кількістю населення у спадаючому порядку
 }
 
+void printData(char full_path[100]){
+    char line[100];
+    struct rec records[MAX_RECORDS];
+    struct sort sorting;
+    int rec_count = 0;
 
-int compareFiles(const char *file1, const char *file2) {
-    FILE *fptr1, *fptr2;
-    char c1, c2;
+    FILE *file = fopen(full_path, "r"); // Replace "your_file.txt" with your file path
 
-    fptr1 = fopen(file1, "r");
-    fptr2 = fopen(file2, "r");
-
-    if (fptr1 == NULL || fptr2 == NULL) {
-        printf("Ошибка открытия файлов.\n");
-        return -1; // Ошибка открытия файлов
-    }
-
-    do {
-        c1 = fgetc(fptr1);
-        c2 = fgetc(fptr2);
-
-        if (c1 != c2) {
-            fclose(fptr1);
-            fclose(fptr2);
-            return 0; // Файлы имеют различное содержимое
-        }
-    } while (c1 != EOF && c2 != EOF);
-
-    fclose(fptr1);
-    fclose(fptr2);
-
-    if (c1 == EOF && c2 == EOF) {
-        return 1; // Файлы имеют одинаковое содержимое
-    } else {
-        return 0; // Файлы имеют различное содержимое
-    }
-}
-char* insertInFile(const char *sourceFile) {
-    struct rec data[MAX_ENTRIES];
-
-    //qsort(data, count, sizeof(struct rec), compare_name_asc);
-    FILE *tempFile = fopen(tempFilePath, "r");
-    int count = 0;
-    while (fscanf(tempFile, "%39s %d %d", data[count].name, &data[count].square, &data[count].nas) == 3) {
-        count++;
-    }
-
-    for (int i = 0; i < 6; i++) {
-        int result = 0;
-        char* methodSort;
-
-
-        if(i == 0) {
-            qsort(data, count, sizeof(struct rec), compare_square_asc);
-            result = compareFiles(sourceFile, tempFilePath);
-            methodSort = "площа зростання";
-        }
-        else if(i == 1) {
-            qsort(data, count, sizeof(struct rec), compare_square_desc);
-            result = compareFiles(sourceFile, tempFilePath);
-            methodSort = "площа спадання";
-        }
-
-        else if(i == 2) {
-            qsort(data, count, sizeof(struct rec), compare_nas_asc);
-            result = compareFiles(sourceFile, tempFilePath);
-            methodSort = "населення зростання";
-        }
-        else if(i == 3) {
-            qsort(data, count, sizeof(struct rec), compare_nas_desc);
-            result = compareFiles(sourceFile, tempFilePath);
-            methodSort = "населення спадання";
-        }
-
-        else if(i == 4) {
-            qsort(data, count, sizeof(struct rec), compare_name_asc);
-            result = compareFiles(sourceFile, tempFilePath);
-            methodSort = "назва зростання";
-        }
-        else if(i == 5) {
-            qsort(data, count, sizeof(struct rec), compare_name_desc);
-            result = compareFiles(sourceFile, tempFilePath);
-            methodSort = "назва спадання";
-        }
-
-
-        if (result == 1) {
-            return methodSort;
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strstr(line, "|") != NULL) {
+            sscanf(line, "%39[^|]|%39s", sorting.sortingMethod, sorting.sortingWay);
         } else {
-            printf("Файлы имеют различное содержимое.\n");
+            sscanf(line, "%39s %d %d", records[rec_count].name, &records[rec_count].square, &records[rec_count].nas);
+            rec_count++;
         }
     }
 
-    return "-";
+    fclose(file);
+
+    printf("Sorting method: %s\n", sorting.sortingMethod);
+    printf("Sorting way: %s\n", sorting.sortingWay);
+
+    printf("Rec records:\n");
+    for (int i = 0; i < rec_count; ++i) {
+        printf("%d. ", i + 1);
+        printf("%s %d %d\n", records[i].name, records[i].square, records[i].nas);
+    }
 }
+void displayRecords(struct rec data[], int count) {
+    printf("Records:\n");
+    for (int i = 0; i < count; ++i) {
+        printf("%d. %s %d %d\n", i + 1, data[i].name, data[i].square, data[i].nas);
+    }
+}
+
+void s(char full_path[100]) {
+    FILE *file = fopen(full_path, "r+");
+
+    struct sort sorting;
+    char lineSort[100];
+    if (fgets(lineSort, sizeof(lineSort), file) != NULL) {
+        sscanf(lineSort, "%39[^|]|%39s", sorting.sortingMethod, sorting.sortingWay);
+    } else {
+        printf("Invalid format in the file.\n");
+        fclose(file);
+        return;
+    }
+
+    struct rec data[MAX_ENTRIES];
+    int count = 0;
+
+    char line[100];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strstr(line, "|") == NULL) {
+            sscanf(line, "%39s %d %d", data[count].name, &data[count].square, &data[count].nas);
+            count++;
+        }
+    }
+
+    printf("\nSorting method: %s\n", sorting.sortingMethod);
+    printf("Sorting way: %s\n", sorting.sortingWay);
+
+    if (strcmp(sorting.sortingMethod, "name") == 0) {
+        if (strcmp(sorting.sortingWay, "asc") == 0) {
+            qsort(data, count, sizeof(struct rec), compare_name_asc);
+        } else if (strcmp(sorting.sortingWay, "desc") == 0) {
+            qsort(data, count, sizeof(struct rec), compare_name_desc);
+        }
+    } else if (strcmp(sorting.sortingMethod, "square") == 0) {
+        if (strcmp(sorting.sortingWay, "asc") == 0) {
+            qsort(data, count, sizeof(struct rec), compare_square_asc);
+        } else if (strcmp(sorting.sortingWay, "desc") == 0) {
+            qsort(data, count, sizeof(struct rec), compare_square_desc);
+        }
+    } else if (strcmp(sorting.sortingMethod, "nas") == 0) {
+        if (strcmp(sorting.sortingWay, "asc") == 0) {
+            qsort(data, count, sizeof(struct rec), compare_nas_asc);
+        } else if (strcmp(sorting.sortingWay, "desc") == 0) {
+            qsort(data, count, sizeof(struct rec), compare_nas_desc);
+        }
+    } else {
+        printf("Invalid sorting method or way.\n");
+        return;
+    }
+
+    rewind(file);
+    fprintf(file, "%s|%s\n", sorting.sortingMethod, sorting.sortingWay);
+    for (int i = 0; i < count; ++i) {
+        fprintf(file, "%s %d %d\n", data[i].name, data[i].square, data[i].nas);
+    }
+
+    fclose(file);
+    printf("\nData sorted and written back to the file successfully.\n");
+}
+
+void SortDataByNas(char full_path[100]) {
+    FILE *file = fopen(full_path, "r");
+
+    if (file == NULL) {
+        printf("Unable to open the file.\n");
+        return;
+    }
+
+    char lineSort[100];
+    if (fgets(lineSort, sizeof(lineSort), file) == NULL) {
+        printf("Invalid format in the file.\n");
+        fclose(file);
+        return;
+    }
+
+    struct rec data[MAX_ENTRIES];
+    int count = 0;
+
+    char line[100];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strstr(line, "|") == NULL) {
+            sscanf(line, "%39s %d %d", data[count].name, &data[count].square, &data[count].nas);
+            count++;
+        }
+    }
+
+    printf("\nData read from the file successfully.\n");
+
+    printf("\nSorting by nas ascending order:\n");
+    qsort(data, count, sizeof(struct rec), compare_nas_asc);
+    for (int i = 0; i < count; ++i) {
+        printf("%s %d %d\n", data[i].name, data[i].square, data[i].nas);
+    }
+
+    fclose(file);
+}
+
 
 int main() {
     int fileChoice, actionFile;
+
+
 
     FILE *file;
     DIR *directory = opendir(path);
@@ -181,6 +230,22 @@ int main() {
 
                     fclose(file);
                     printf("File created: %s\n", filepath);
+
+                    ///////////////////////////////////////////////////////////// Sorting
+
+                    struct sort sorting;
+
+                    strcpy(sorting.sortingMethod, "NULL");
+                    strcpy(sorting.sortingWay, "NULL");
+
+                    file = fopen(filepath, "a");
+                    fprintf(file, "%s|%s\n", sorting.sortingMethod, sorting.sortingWay);
+
+
+                    fclose(file);
+
+                    printf("Data added to the file successfully.\n");
+
                 } else {
                     printf("File already exist");
                 }
@@ -205,14 +270,12 @@ int main() {
                     }
                     closedir(dir);
 
-
                     if (count > 0) {
 
                         printf("Available text files:\n");
                         for (int i = 0; i < count; ++i) {
                             printf("%d. %s\n", i + 1, files[i]);
                         }
-
                         int choiceFile;
                         printf("Enter the file number you want to select: ");
                         scanf("%d", &choiceFile);
@@ -223,6 +286,8 @@ int main() {
                         strcpy(full_path, path);
                         strcat(full_path, "/");
                         strcat(full_path, txtFile);
+
+                        SortDataByNas(full_path);
 
                         do {
                             printf("\n1 - Add data to file\n"
@@ -235,7 +300,6 @@ int main() {
                             scanf("%d", &actionFile);
 
                             struct rec data_to_write;
-
 
                             switch (actionFile) {
 
@@ -260,51 +324,40 @@ int main() {
                                 }
 
                                 case 2: {
-                                    file = fopen(full_path, "r");
-                                    struct rec data[MAX_ENTRIES];
-                                    count = 0;
 
-                                    while (fscanf(file, "%39s %d %d", data[count].name, &data[count].square,
-                                                  &data[count].nas) == 3) {
-                                        count++;
-                                    }
-
-                                    printf("Data read from the file:\n");
-                                    for (int i = 0; i < count; ++i) {
-                                        printf("Name: %s, Square: %d, Nas: %d\n", data[i].name, data[i].square,
-                                               data[i].nas);
-                                    }
-
-                                    fclose(file);
+                                    printData(full_path);
 
                                     break;
                                 }
 
                                 case 3: {
-                                    file = fopen(full_path, "r");
-                                    int line_number, choice;
-                                    count = 0;
-                                    char new_name[40];
-                                    struct rec data[MAX_ENTRIES];
+                                    file = fopen(full_path, "r+");
 
-                                    while (fscanf(file, "%39s %d %d", data[count].name, &data[count].square,
-                                                  &data[count].nas) == 3) {
-                                        count++;
+                                    struct rec data[MAX_ENTRIES];
+                                    struct sort sorting;
+                                    count = 0;
+
+                                    char line[100];
+                                    while (fgets(line, sizeof(line), file) != NULL) {
+                                        if (strstr(line, "|") != NULL) {
+                                            sscanf(line, "%39[^|]|%39s", sorting.sortingMethod, sorting.sortingWay);
+                                        } else {
+                                            sscanf(line, "%39s %d %d", data[count].name, &data[count].square, &data[count].nas);
+                                            count++;
+                                        }
                                     }
 
                                     fclose(file);
 
                                     printf("Current data:\n");
-                                    for (int i = 0; i < count; ++i) {
-                                        printf("%d. Name: %s, Square: %d, Nas: %d\n", i + 1, data[i].name,
-                                               data[i].square, data[i].nas);
-                                    }
+                                    displayRecords(data, count);
 
-                                    printf("Enter the line number to modify: ");
-                                    scanf("%d", &line_number);
+                                    int choice, recordNum;
+                                    printf("\nEnter the record number to modify (1-%d): ", count);
+                                    scanf("%d", &recordNum);
 
-                                    if (line_number >= 1 && line_number <= count) {
-                                        printf("What do you want to change?\n");
+                                    if (recordNum >= 1 && recordNum <= count) {
+                                        printf("Choose what to change for record %d:\n", recordNum);
                                         printf("1. Name\n");
                                         printf("2. Square\n");
                                         printf("3. Nas\n");
@@ -313,26 +366,29 @@ int main() {
 
                                         switch (choice) {
                                             case 1:
-                                                printf("Enter the new name: ");
-                                                scanf("%s", new_name);
-                                                strcpy(data[line_number - 1].name, new_name);
+                                                printf("Enter new name: ");
+                                                scanf("%s", data[recordNum - 1].name);
                                                 break;
                                             case 2:
-                                                printf("Enter the new square: ");
-                                                scanf("%d", &data[line_number - 1].square);
+                                                printf("Enter new square: ");
+                                                scanf("%d", &data[recordNum - 1].square);
                                                 break;
                                             case 3:
-                                                printf("Enter the new nas: ");
-                                                scanf("%d", &data[line_number - 1].nas);
+                                                printf("Enter new nas: ");
+                                                scanf("%d", &data[recordNum - 1].nas);
                                                 break;
                                             default:
                                                 printf("Invalid choice.\n");
                                                 return 1;
                                         }
 
-
                                         file = fopen(full_path, "w");
+                                        if (file == NULL) {
+                                            printf("Failed to open the file.\n");
+                                            return 1;
+                                        }
 
+                                        fprintf(file, "%s|%s\n", sorting.sortingMethod, sorting.sortingWay);
                                         for (int i = 0; i < count; ++i) {
                                             fprintf(file, "%s %d %d\n", data[i].name, data[i].square, data[i].nas);
                                         }
@@ -341,216 +397,146 @@ int main() {
 
                                         printf("Data modified and written back to the file successfully.\n");
                                     } else {
-                                        printf("Invalid line number.\n");
+                                        printf("Invalid record number.\n");
                                     }
+
 
 
                                     break;
                                 }
 
                                 case 4: {
-                                    struct rec data[MAX_ENTRIES];
-                                    count = 0;
-                                    int choice;
-
-                                    file = fopen(full_path, "r");
-
-                                    while (fscanf(file, "%39s %d %d", data[count].name, &data[count].square,
-                                                  &data[count].nas) == 3) {
-                                        count++;
-                                    }
-
-                                    fclose(file);
+                                    file = fopen(full_path, "r+");
+                                    struct sort sorting;
 
                                     printf("Current data:\n");
-                                    for (int i = 0; i < count; ++i) {
-                                        printf("%s %d %d\n", data[i].name, data[i].square, data[i].nas);
-                                    }
+                                    printData(full_path);
 
+                                    int choice;
                                     printf("Choose a field for sorting:\n");
                                     printf("1. Name of the region\n");
-                                    printf("2. Area\n");
+                                    printf("2. Square\n");
                                     printf("3. Population\n");
                                     printf("Your choice: ");
                                     scanf("%d", &choice);
 
-                                    switch (choice) {
-                                        case 1: {
-                                            int order;
-                                            printf("Select the sorting order:\n");
-                                            printf("1. Ascending\n");
-                                            printf("2. Descending\n");
-                                            printf("Your choice: ");
-                                            scanf("%d", &order);
+                                    char line[100];
+                                    if (fgets(line, sizeof(line), file) != NULL) {
+                                        sscanf(line, "%39[^|]|%39s", sorting.sortingMethod, sorting.sortingWay);
 
-                                            switch (order) {
-                                                case 1:
-                                                    qsort(data, count, sizeof(struct rec), compare_name_asc);
-                                                    break;
-                                                case 2:
-                                                    qsort(data, count, sizeof(struct rec), compare_name_desc);
-                                                    break;
-                                                default:
-                                                    printf("Invalid sorting order choice.\n");
-                                                    break;
-                                            }
-                                            break;
-                                        }
+                                        switch (choice) {
+                                            case 1: {
+                                                int order;
+                                                printf("Select the sorting order:\n");
+                                                printf("1. Ascending\n");
+                                                printf("2. Descending\n");
+                                                printf("Your choice: ");
+                                                scanf("%d", &order);
 
-                                        case 2: {
-                                            int order;
-                                            printf("Select the sorting order:\n");
-                                            printf("1. Ascending\n");
-                                            printf("2. Descending\n");
-                                            printf("Your choice: ");
-                                            scanf("%d", &order);
-
-                                            switch (order) {
-                                                case 1:
-                                                    qsort(data, count, sizeof(struct rec), compare_square_asc);
-                                                    break;
-                                                case 2:
-                                                    qsort(data, count, sizeof(struct rec), compare_square_desc);
-                                                    break;
-                                                default:
-                                                    printf("Invalid sorting order choice.\n");
-                                                    break;
+                                                switch (order) {
+                                                    case 1:
+                                                        strcpy(sorting.sortingMethod, "name");
+                                                        strcpy(sorting.sortingWay, "asc");
+                                                        break;
+                                                    case 2:
+                                                        strcpy(sorting.sortingMethod, "name");
+                                                        strcpy(sorting.sortingWay, "desc");
+                                                        break;
+                                                    default:
+                                                        printf("Invalid sorting order choice.\n");
+                                                        break;
+                                                }
+                                                break;
                                             }
 
-                                            break;
-                                        }
+                                            case 2: {
+                                                int order;
+                                                printf("Select the sorting order:\n");
+                                                printf("1. Ascending\n");
+                                                printf("2. Descending\n");
+                                                printf("Your choice: ");
+                                                scanf("%d", &order);
 
-                                        case 3: {
-                                            int order;
-                                            printf("Select the sorting order:\n");
-                                            printf("1. Ascending\n");
-                                            printf("2. Descending\n");
-                                            printf("Your choice: ");
-                                            scanf("%d", &order);
+                                                switch (order) {
+                                                    case 1:
+                                                        strcpy(sorting.sortingMethod, "square");
+                                                        strcpy(sorting.sortingWay, "asc");
+                                                        break;
+                                                    case 2:
+                                                        strcpy(sorting.sortingMethod, "square");
+                                                        strcpy(sorting.sortingWay, "desc");
+                                                        break;
+                                                    default:
+                                                        printf("Invalid sorting order choice.\n");
+                                                        break;
+                                                }
 
-                                            switch (order) {
-                                                case 1:
-                                                    qsort(data, count, sizeof(struct rec), compare_nas_asc);
-                                                    break;
-                                                case 2:
-                                                    qsort(data, count, sizeof(struct rec), compare_nas_desc);
-                                                    break;
-                                                default:
-                                                    printf("Invalid sorting order choice.\n");
-                                                    break;
+                                                break;
                                             }
 
-                                            break;
+                                            case 3: {
+                                                int order;
+                                                printf("Select the sorting order:\n");
+                                                printf("1. Ascending\n");
+                                                printf("2. Descending\n");
+                                                printf("Your choice: ");
+                                                scanf("%d", &order);
+
+                                                switch (order) {
+                                                    case 1:
+                                                        strcpy(sorting.sortingMethod, "nas");
+                                                        strcpy(sorting.sortingWay, "asc");
+                                                        break;
+                                                    case 2:
+                                                        strcpy(sorting.sortingMethod, "nas");
+                                                        strcpy(sorting.sortingWay, "desc");
+                                                        break;
+                                                    default:
+                                                        printf("Invalid sorting order choice.\n");
+                                                        break;
+                                                }
+
+                                                break;
+                                            }
+
+                                            default:
+                                                printf("Invalid choice.\n");
+                                                break;
                                         }
 
-                                        default:
-                                            printf("Invalid choice.\n");
-                                            return 1;
+                                        fseek(file, 0, SEEK_SET);
+
+                                        fprintf(file, "%s|%s\n", sorting.sortingMethod, sorting.sortingWay);
+
+                                        fclose(file);
                                     }
 
-                                    file = fopen(full_path, "w");
 
-                                    if (file == NULL) {
-                                        printf("Failed to open the file.\n");
-                                        break;
-                                    }
 
-                                    for (int i = 0; i < count; ++i) {
-                                        fprintf(file, "%s %d %d\n", data[i].name, data[i].square, data[i].nas);
-                                    }
+                                    s(full_path);
 
-                                    fclose(file);
 
-                                    printf("Data sorted and written back to the file successfully.\n");
 
                                     break;
                                 }
 
                                 case 5: {
-                                    const char *sourceFile = full_path;
-                                    const char *tempFile = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
-
-                                    FILE *source, *destination;
-                                    char ch;
-
-                                    source = fopen(sourceFile, "r");
-                                    if (source == NULL) {
-                                        printf("Error opening file %s\n", sourceFile);
-                                        break;
-                                    }
-
-                                    destination = fopen(tempFile, "w");
-                                    if (destination == NULL) {
-                                        fclose(source);
-                                        printf("Error opening file %s\n", tempFile);
-                                        break;
-                                    }
-
-
-                                    while ((ch = fgetc(source)) != EOF) {
-                                        fputc(ch, destination);
-                                    }
-
-                                    printf("Content from %s successfully copied to %s\n", sourceFile, tempFile);
-
-                                    fclose(source);
-                                    fclose(destination);
-
-                                    char *methodSort = insertInFile(sourceFile);
-                                    printf("\n\n%s\n\n", methodSort);
-
                                     file = fopen(full_path, "a");
+
                                     printf("Enter name: ");
                                     scanf("%s", data_to_write.name);
+
                                     printf("Enter square: ");
                                     scanf("%d", &data_to_write.square);
+
                                     printf("Enter nas: ");
                                     scanf("%d", &data_to_write.nas);
+
                                     fprintf(file, "%s %d %d\n", data_to_write.name, data_to_write.square,
                                             data_to_write.nas);
-                                    fclose(file);
-
-                                    struct rec data[MAX_ENTRIES];
-                                    count = 0;
-
-                                    while (fscanf(file, "%s %d %d", data[count].name, &data[count].square,
-                                                  &data[count].nas) == 3) {
-                                        count++;
-                                    }
-
-                                    file = fopen(full_path, "r");
-                                    while (fscanf(file, "%39s %d %d", data[count].name, &data[count].square,
-                                                  &data[count].nas) == 3) {
-                                        count++;
-                                    }
-                                    fclose(file);
-
-                                    if (strcmp(methodSort, "площа зростання") == 0) {
-                                        qsort(data, count, sizeof(struct rec), compare_square_asc);
-                                    } else if (strcmp(methodSort, "площа спадання") == 0) {
-                                        qsort(data, count, sizeof(struct rec), compare_square_desc);
-                                    } else if (strcmp(methodSort, "населення зростання") == 0) {
-                                        qsort(data, count, sizeof(struct rec), compare_nas_asc);
-                                    } else if (strcmp(methodSort, "населення спадання") == 0) {
-                                        qsort(data, count, sizeof(struct rec), compare_nas_desc);
-                                    } else if (strcmp(methodSort, "назва зростання") == 0) {
-                                        qsort(data, count, sizeof(struct rec), compare_name_asc);
-                                    } else if (strcmp(methodSort, "назва спадання\"") == 0) {
-                                        qsort(data, count, sizeof(struct rec), compare_name_desc);
-                                    }
-
-                                    file = fopen(full_path, "w");
-
-                                    if (file == NULL) {
-                                        printf("Failed to open the file.\n");
-                                        break;
-                                    }
-                                    for (int i = 0; i < count; ++i) {
-                                        fprintf(file, "%s %d %d\n", data[i].name, data[i].square, data[i].nas);
-                                    }
 
                                     fclose(file);
-                                    printf("Data sorted and written back to the file successfully.\n");
+
 
                                     break;
                                 }
