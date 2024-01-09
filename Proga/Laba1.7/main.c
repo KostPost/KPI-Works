@@ -1,53 +1,87 @@
 #include <stdio.h>
 #include <math.h>
 
-double f(double x, double y) {
-    return cos(y / x) - 2 * sin(1 / x) + 1 / x;
+double equation(double x) {
+    return x * x * x - 4 * x - 9;
 }
 
-double df_dx(double x, double y) {
-    double h = 1e-5;
-    return (f(x + h, y) - f(x, y)) / h;
+double bisectionMethod(double a, double b, double precision) {
+    double c = (a + b) / 2.0;
+    while ((b - a) >= precision) {
+        c = (a + b) / 2.0;
+
+        if (equation(c) == 0.0)
+            break;
+        else if (equation(c) * equation(a) < 0) //
+            b = c;
+        else
+            a = c;
+    }
+    return c;
 }
 
-double df_dy(double x, double y) {
-    double h = 1e-5;
-    return (f(x, y + h) - f(x, y)) / h;
+
+double derivative(double x) {
+}
+
+double newtonMethod(double x, double precision) {
+    double h = equation(x) / derivative(x);
+    while (fabs(h) >= precision) {
+        h = equation(x) / derivative(x);
+
+        x = x - h;
+    }
+    return x;
 }
 
 int main() {
-    double a1, a2;
-    double epsilon;
-    double x0, y0;
-
-    printf("Enter the start of the interval (a1): ");
-    scanf("%lf", &a1);
-    printf("Enter the end of the interval (a2): ");
-    scanf("%lf", &a2);
-    printf("Enter the tolerance (epsilon): ");
-    scanf("%lf", &epsilon);
-
-    printf("Enter the initial approximation for x0: ");
-    scanf("%lf", &x0);
-    printf("Enter the initial approximation for y0: ");
-    scanf("%lf", &y0);
-
-    int maxIterations;
-    int iterations = 0;
+    int choice;
 
     do {
-        double delta_x = -f(x0, y0) / df_dx(x0, y0);
-        double delta_y = -f(x0, y0) / df_dy(x0, y0);
-        x0 += delta_x;
-        y0 += delta_y;
-        iterations++;
-    } while (fabs(f(x0, y0)) > epsilon && iterations < maxIterations);
 
-    if (iterations < maxIterations) {
-        printf("Solution: x = %.6f, y = %.6f\n", x0, y0);
-    } else {
-        printf("Unable to find a solution with the specified tolerance.\n");
-    }
+        printf("1 - Bisection method\n2 - Newton method\n3 - Exit\n");
+        scanf("%d", &choice);
+
+
+        switch (choice) {
+
+            case 1: {
+                double a, b;
+                printf("Enter interval a");
+                scanf("%lf", &a);
+
+                printf("Enter interval b");
+                scanf("%lf", &b);
+
+                double precision;
+                printf("Enter precision");
+                scanf("%lf", &precision);
+
+                if (equation(a) * equation(b) >= 0) {
+                    printf("incorrect interval");
+                    break;
+                }
+
+                double root = bisectionMethod(a, b, precision);
+                printf("Корінь рівняння: %lf\n", root);
+                break;
+            }
+
+            case 2: {
+                double initialGuess;
+                printf("Enter the initial approximation: ");
+                scanf("%lf", &initialGuess);
+
+                double precision;
+                printf("Enter precision");
+                scanf("%lf", &precision);
+
+                double root = newtonMethod(initialGuess, precision);
+                printf("Root of the equation: %lf\n", root);
+                break;
+            }
+        }
+    } while (choice != 3);
 
     return 0;
 }

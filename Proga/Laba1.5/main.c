@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-char** generateRandomStrings(char** list,int n_str, int str_size) {
+char **generateRandomStrings(char **list, int n_str, int str_size) {
 
 
     if (list == NULL) {
@@ -14,7 +14,7 @@ char** generateRandomStrings(char** list,int n_str, int str_size) {
     }
 
     for (int i = 0; i < n_str; i++) {
-        list[i] = (char*)malloc((str_size + 1) * sizeof(char));
+        list[i] = (char *) malloc((str_size + 1) * sizeof(char));
 
         if (list[i] == NULL) {
             return NULL;
@@ -30,41 +30,58 @@ char** generateRandomStrings(char** list,int n_str, int str_size) {
     return list;
 }
 
-int compareStrings(const void* a, const void* b) {
-    return strcmp(*(const char**)a, *(const char**)b);
+int compareStrings(const void *a, const void *b) {
+    return strcmp(*(const char **) a, *(const char **) b);
 }
 
 int main() {
-    int n_str, str_size;
 
-    printf("Enter the number of strings: ");
-    scanf("%d", &n_str);
+    int choice;
 
-    printf("Enter the size of each string: ");
-    scanf("%d", &str_size);
+    do {
 
-    char** list = (char**)malloc(n_str * sizeof(char*));
+        printf("1 - Sorting chars\n2 - Exit\n");
+        scanf("%d", &choice);
 
-    //char *addr = (char*)malloc(n_str * sizeof(char*));
+        switch (choice) {
 
-    list = generateRandomStrings(list,n_str,str_size);
+            case 1: {
+                int n_str, str_size;
 
-    printf("Before sorting:\n");
-    for (int i = 0; i < n_str; i++) {
-        printf("String %d: %s\n", i + 1, list[i]);
-    }
+                printf("Enter the number of strings: ");
+                scanf("%d", &n_str);
 
-    qsort(list, n_str, sizeof(char*), compareStrings);
+                printf("Enter the size of each string: ");
+                scanf("%d", &str_size);
+
+                char **list = (char **) malloc(n_str * sizeof(char *));
+
+                //char *addr = (char*)malloc(n_str * sizeof(char*));
+
+                list = generateRandomStrings(list, n_str, str_size);
+
+                printf("Before sorting:\n");
+                for (int i = 0; i < n_str; i++) {
+                    printf("String %d: %s\n", i + 1, list[i]);
+                }
+
+                qsort(list, n_str, sizeof(char *), compareStrings);
 
 
-    printf("\nSorted strings:\n");
-    for (int i = 0; i < n_str; i++) {
-        printf("String %d: %s\n", i + 1, list[i]);
-    }
+                printf("\nSorted strings:\n");
+                for (int i = 0; i < n_str; i++) {
+                    printf("String %d: %s\n", i + 1, list[i]);
+                }
 
-    for (int i = 0; i < n_str; i++) {
-        free(list[i]);
-    }
-    free(list);
+                for (int i = 0; i < n_str; i++) {
+                    free(list[i]);
+                }
+                free(list);
+                break;
+            }
+        }
+
+    }  while (choice != 2);
+
     return 0;
 }

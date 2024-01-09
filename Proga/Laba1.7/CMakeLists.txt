@@ -4,3 +4,5 @@ project(Laba1_7)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Laba1_7 main.c)
+
+target_link_libraries(Laba1_7 m)

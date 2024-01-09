@@ -6,6 +6,7 @@
 double factorial(int n) {
     return (n == 0 || n == 1) ? 1.0 : n * factorial(n - 1);
 }
+
 double taylorSin(double x, double epsilon) {
     double result = x;
     double term = x;
@@ -19,6 +20,7 @@ double taylorSin(double x, double epsilon) {
 
     return result;
 }
+
 double taylorCos(double x, double epsilon) {
     double result = 1.0;
     double term = 1.0;
@@ -32,13 +34,14 @@ double taylorCos(double x, double epsilon) {
 
     return result;
 }
-void FindTayolrs(){
+
+void FindTayolrs() {
     double startX = 1, endX = 7, dx = 1, epsilon = 0.1, x;
     int choice;
 
     do {
         printf("1 - sin\n2 - cos\n ");
-        if ( scanf("%d", &choice) != 1) {
+        if (scanf("%d", &choice) != 1) {
             while (getchar() != '\n');
             printf("\"You need to enter 1 or 2\\n\");\n");
             continue;
@@ -46,21 +49,20 @@ void FindTayolrs(){
     } while (choice != 1 && choice != 2);
 
 
-    printf("Enter start X");
-    scanf("%lf",&startX);
+    printf("Enter start X: ");
+    scanf("%lf", &startX);
 
-    printf("Enter end X");
+    printf("Enter end X: ");
     scanf("%lf", &endX);
 
-    printf("Enter end dx");
+    printf("Enter end dx: ");
     scanf("%lf", &dx);
 
-    printf("Enter end Epsilon");
+    printf("Enter end Epsilon: ");
     scanf("%lf", &epsilon);
 
 
-
-    if(choice == 1) {
+    if (choice == 1) {
 
         double count, mustBe;
         if (startX > endX) {
@@ -74,7 +76,7 @@ void FindTayolrs(){
         }
 
         printf("\n");
-        printf("x\t\tsin\t\tsin(Taylor)\tsin - sin(Taylor)\n");
+        printf("x\t\t\tsin\t\t\tsin(Taylor)\tsin - sin(Taylor)\n");
 
         while (count != mustBe) {
 
@@ -89,8 +91,7 @@ void FindTayolrs(){
 
             count += dx;
         }
-    }
-    else if(choice == 2) {
+    } else if (choice == 2) {
 
 
         double count, mustBe;
@@ -106,7 +107,7 @@ void FindTayolrs(){
 
 
         printf("\n");
-        printf("x\t\tcos\t\tcos(Taylor)s\tcos - cos(Taylor)\n");
+        printf("x\t\t\tcos\t\t\tcos(Taylor)s\tcos - cos(Taylor)\n");
 
         while (count != mustBe) {
 
@@ -125,7 +126,7 @@ void FindTayolrs(){
 
 }
 
-void Sorting(){
+void Sorting() {
     float *nums = NULL;
 
     size_t size = 0;
@@ -177,9 +178,26 @@ void Sorting(){
 int main() {
 
 
-    FindTayolrs();
+    int choice;
 
-    Sorting();
+    do {
+        printf("1 - Find Taylor\n2 - Sorting\n3 - Exit\n");
+        scanf("%d",&choice);
+
+        switch (choice) {
+
+            case 1:
+                FindTayolrs();
+                break;
+
+
+            case 2:
+                Sorting();
+                break;
+        }
+
+
+    } while (choice != 3);
 
     return 0;
 }

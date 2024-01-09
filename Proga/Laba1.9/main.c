@@ -95,7 +95,7 @@ void changeDataSort(char *file_path, struct sort newData) {
     }
     fprintf(file, "%s %s\n", newData.sortingMethod, newData.sortingWay);
     fclose(file);
-
+}
 
 //    file = fopen(file_path, "r");
 //    if (file == NULL) {
@@ -121,7 +121,7 @@ void changeDataSort(char *file_path, struct sort newData) {
 //    fclose(temp_file);
 //    remove(file_path);
 //    rename(temp_file_path, file_path);
-}
+
 
 //void sortDataRec(char *file_path) {
 //    FILE *file;
@@ -711,45 +711,42 @@ int main() {
 
                 dir = opendir(path);
                 if (dir == NULL) {
-                    perror("Не вдалося відкрити папку");
+                    perror("Failed to open directory");
                     return EXIT_FAILURE;
                 }
 
-                printf("Доступні файли:\n");
+                printf("Available files:\n");
                 int file_count = 0;
-                // Виведення усіх файлів у директорії з номерами
                 while ((entry = readdir(dir)) != NULL) {
-                    if (entry->d_type == DT_REG) {  // Перевірка, що це файл
+                    if (entry->d_type == DT_REG) {  // Check if it's a file
                         file_count++;
                         printf("%d. %s\n", file_count, entry->d_name);
                     }
                 }
                 closedir(dir);
 
-                printf("Виберіть файл, який потрібно видалити (введіть номер): ");
+                printf("Select the file to delete (enter the number): ");
                 scanf("%d", &choice);
 
-                // Повторне відкриття директорії
                 dir = opendir(path);
                 if (dir == NULL) {
-                    perror("Не вдалося відкрити папку");
+                    perror("Failed to open directory");
                     return EXIT_FAILURE;
                 }
 
                 file_count = 0;
-                // Знаходження обраного файлу за номером
                 while ((entry = readdir(dir)) != NULL) {
                     if (entry->d_type == DT_REG) {
                         file_count++;
                         if (file_count == choice) {
-                            char filepath[100];  // Шлях до файлу
+                            char filepath[100];  // File path
                             snprintf(filepath, sizeof(filepath), "%s/%s", path, entry->d_name);
-                            // Видалення файлу
+                            // Deleting the file
                             if (remove(filepath) != 0) {
-                                perror("Помилка видалення файлу");
+                                perror("Error deleting the file");
                                 return EXIT_FAILURE;
                             }
-                            printf("Файл \"%s\" був успішно видалений.\n", entry->d_name);
+                            printf("The file \"%s\" has been successfully deleted.\n", entry->d_name);
                             break;
                         }
                     }
@@ -758,6 +755,7 @@ int main() {
 
                 break;
             }
+
 
         }
 
