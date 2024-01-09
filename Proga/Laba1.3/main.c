@@ -1,61 +1,58 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
 
- void Find_Y_3_1(){
+void Find_Y_3_1() {
 
-     printf("\n\n---Find_Y_3_1---\n");
+    printf("\n\n---Find_Y_3_1---\n");
 
-    double x = 8, k = 3, epsilon = 0;
-    printf("Enter x:");
-    scanf("%lf", &x);
+    double x = 8, k = 3, epsilon;
+//    printf("Enter x:");
+//    scanf("%lf", &x);
+//
+//    printf("Enter k:");
+//    scanf("%lf", &k);
 
-    printf("Enter k:");
-    scanf("%lf", &k);
+    int choice;
+    printf("Введіть як ви хочете ввести точність:\n");
+    printf("1. Кількість знаків після коми (3)\n");
+    printf("2. Дійсне число (0.001)\n");
+    printf("3. Експоненціальний вигляд (1Е-3)\n");
 
-//    printf("Enter epsilon:");
-//    scanf("%f", &epsilon);
+    scanf("%d", &choice);
 
+    int numDigits;
+    char exp[20];
 
-    bool working = true;
-    do {
-        printf("Enter epsilon (choose one option):\n");
-        printf("1. The number of decimal places is (3)\n");
-        printf("2. The real number is (08.001)\n");
-        printf("3. Exponential form - 1E-3\n");
+    switch (choice) {
+        case 1:
+            printf("Введіть кількість знаків після коми: ");
+            scanf("%d", &numDigits);
+            numDigits /= 2;
+            epsilon = 1.0 / pow(10, numDigits);
+            for (int i = 0; i < numDigits; ++i) {
+                epsilon /= 10.0;
+            }
+            printf("Точність: %.*e\n", numDigits, epsilon);
+            break;
+        case 2:
+            printf("Введіть дійсне число: ");
+            scanf("%lf", &epsilon);
+            break;
+        case 3:
+            printf("Введіть точність у форматі експоненції (наприклад, 1E-3): ");
+            scanf("%19s", exp);
+            epsilon = atof(exp);
+            printf("Точність: %.*e\n", 3, epsilon);
+            break;
+        default:
+            printf("Невірний вибір.\n");
+            break;
+    }
 
-        int epsilonOption = 0;
-        scanf("%d", &epsilonOption);
-
-        switch (epsilonOption) {
-            case 1:
-                printf("Enter the number of decimal places (e.g., 3): ");
-                int decimalPlaces;
-                scanf("%d", &decimalPlaces);
-                epsilon = pow(10, -decimalPlaces);
-                working = false;
-                break;
-            case 2:
-                printf("Enter a real number (e.g., 0.001): ");
-                scanf("%lf", &epsilon);
-                working = false;
-                break;
-            case 3:
-                printf("Enter in exponential form (e.g., 1E-8): ");
-                double exponent;
-                scanf("%lf", &exponent);
-                epsilon = pow(10, exponent);
-                working = false;
-                break;
-            default:
-                printf("Invalid option. Using default epsilon = 0.\n");
-                break;
-        }
-    }while(working);
-
-
-    printf("x = %f\t k = %f\t e = %fe\n", x, k, epsilon);
-    printf("\n\ne = %f\n\n", epsilon);
+    printf("x = %.3f\t k = %.6f\t e = %.6e\n", x, k, epsilon);
 
     double delta = 1.0;
     double y = 1.0;
@@ -71,7 +68,6 @@
         printf("y = %f\n\n", y);
     }
 }
-
 
 
 int isLeapYear(int year) {
@@ -90,7 +86,7 @@ int getDaysInMonth(int year, int month) {
         return 31;
 }
 
-void Calendar_3_2(){
+void Calendar_3_2() {
 
     printf("\n\n---Calendar---\n");
     int day, month, year;
@@ -129,7 +125,7 @@ void Calendar_3_2(){
             printf("Error: Day must be in the range from 1 to %d.\n", maxDaysInMonth);
         }
 
-    }while(day < 1 || day > maxDaysInMonth);
+    } while (day < 1 || day > maxDaysInMonth);
 
     if (month < 3) {
         month += 12;
@@ -140,11 +136,9 @@ void Calendar_3_2(){
     int j = year / 100;
 
     int dayOfWeek = (day + 13 * (month + 1) / 5 + k + k / 4 + j / 4 + 5 * j) % 7;
-    char *days[] = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    char *days[] = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     printf("The day of the week is: %s\n", days[dayOfWeek]);
 }
-
-
 
 
 double cubicEquation(double a, double b, double c, double x) {
@@ -168,7 +162,7 @@ double findRoot(double a, double b, double c, double left, double right, double 
     return (left + right) / 2.0;
 }
 
-void CubicEquation_3_3(){
+void CubicEquation_3_3() {
 
     printf("\n\n---CubicEquation---\n");
     double a, b, c;
@@ -194,13 +188,28 @@ void CubicEquation_3_3(){
 
 int main() {
 
-    Find_Y_3_1();
-
-    Calendar_3_2();
-
-    CubicEquation_3_3();
+    int choice;
 
 
+    do {
+        printf("1 - Find Y 3.1\n2 - Calendar 3.2\n3 - CubicEquation 3.3\n4 - Exit");
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+            case 1:
+                Find_Y_3_1();
+                break;
+
+            case 2:
+                Calendar_3_2();
+                break;
+
+            case 3:
+                CubicEquation_3_3();
+                break;
+        }
+    } while (choice != 4);
 
 
     return 0;
