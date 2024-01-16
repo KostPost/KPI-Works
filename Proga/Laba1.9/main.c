@@ -88,98 +88,79 @@ void displayRecords(struct rec data[], int count) {
 }
 
 void changeDataSort(char *file_path, struct sort newData) {
-    FILE *file = fopen(file_path, "r+");
-    if (file == NULL) {
+    FILE *inputFile, *tempFile;
+    char line[100];
+
+    // Open the input file for reading
+    inputFile = fopen(file_path, "r");
+    if (inputFile == NULL) {
         printf("Error opening the file.\n");
         return;
     }
-    fprintf(file, "%s %s\n", newData.sortingMethod, newData.sortingWay);
-    fclose(file);
+
+    // Open a temporary file for writing
+    tempFile = fopen("temp_file.txt", "w");
+    if (tempFile == NULL) {
+        printf("Error creating temporary file.\n");
+        fclose(inputFile);
+        return;
+    }
+
+    // Write the new sorting information to the temporary file
+    fprintf(tempFile, "%s %s\n", newData.sortingMethod, newData.sortingWay);
+
+    // Copy the remaining content from the input file to the temporary file
+    while (fgets(line, sizeof(line), inputFile) != NULL) {
+        fprintf(tempFile, "%s", line);
+    }
+
+    // Close the input and temporary files
+    fclose(inputFile);
+    fclose(tempFile);
+
+    // Replace the original file with the temporary file
+    remove(file_path);
+    rename("temp_file.txt", file_path);
+
+    printf("Sorting information updated successfully.\n");
+
+    FILE *outputFile;
+    int lineNumber = 0;
+
+    // Open the input file for reading
+    inputFile = fopen(file_path, "r");
+    if (inputFile == NULL) {
+        printf("Error opening the file for reading.\n");
+        return;
+    }
+
+    // Open a temporary file for writing
+    outputFile = fopen("temp_file.txt", "w");
+    if (outputFile == NULL) {
+        printf("Error creating temporary file.\n");
+        fclose(inputFile);
+        return;
+    }
+
+    // Read lines from the input file and skip the second line
+    while (fgets(line, sizeof(line), inputFile) != NULL) {
+        lineNumber++;
+        // Skip the second line
+        if (lineNumber != 2) {
+            fprintf(outputFile, "%s", line);
+        }
+    }
+
+    // Close the input and output files
+    fclose(inputFile);
+    fclose(outputFile);
+
+    // Replace the original file with the temporary file
+    remove(file_path);
+    rename("temp_file.txt", file_path);
+
+    printf("Second line deleted successfully.\n");
 }
-
-//    file = fopen(file_path, "r");
-//    if (file == NULL) {
-//        printf("Error opening the file.\n");
-//        return;
-//    }
-//    const char *temp_file_path = "temp_file.txt";
-//    FILE *temp_file = fopen(temp_file_path, "w");
-//    if (temp_file == NULL) {
-//        printf("Error creating temporary file.\n");
-//        fclose(file);
-//        return;
-//    }
-//    char line[100];
-//    int line_count = 0;
-//    while (fgets(line, sizeof(line), file)) {
-//        if (line_count != 1) {
-//            fputs(line, temp_file);
-//        }
-//        line_count++;
-//    }
-//    fclose(file);
-//    fclose(temp_file);
-//    remove(file_path);
-//    rename(temp_file_path, file_path);
-
-
-//void sortDataRec(char *file_path) {
-//    FILE *file;
-//    struct sort sorting;
-//    file = fopen(file_path, "r");
-//    fscanf(file, "%39s %39s", sorting.sortingMethod, sorting.sortingWay);
-//    fclose(file);
-//
-//    file = fopen(file_path, "r");
-//    int max_records = 100;
-//    struct rec records[max_records];
-//    int count = 0;
-//    char line[400];
-//
-//    fgets(line, sizeof(line), file);
-//
-//    while (fgets(line, sizeof(line), file) && count < max_records) {
-//        sscanf(line, "%s %d %d", records[count].name, &records[count].square, &records[count].nas);
-//        count++;
-//    }
-//
-//    fclose(file);
-//
-//    if (strcmp(sorting.sortingMethod, "name") == 0) {
-//        if (strcmp(sorting.sortingWay, "asc") == 0) {
-//            qsort(records, count, sizeof(struct rec), compare_name_asc);
-//        } else if (strcmp(sorting.sortingWay, "desc") == 0) {
-//            qsort(records, count, sizeof(struct rec), compare_name_desc);
-//        }
-//    } else if (strcmp(sorting.sortingMethod, "square") == 0) {
-//        if (strcmp(sorting.sortingWay, "asc") == 0) {
-//            qsort(records, count, sizeof(struct rec), compare_square_asc);
-//        } else if (strcmp(sorting.sortingWay, "desc") == 0) {
-//            qsort(records, count, sizeof(struct rec), compare_square_desc);
-//        }
-//    } else if (strcmp(sorting.sortingMethod, "nas") == 0) {
-//        if (strcmp(sorting.sortingWay, "asc") == 0) {
-//            qsort(records, count, sizeof(struct rec), compare_nas_asc);
-//        } else if (strcmp(sorting.sortingWay, "desc") == 0) {
-//            qsort(records, count, sizeof(struct rec), compare_nas_desc);
-//        }
-//    } else {
-//        printf("Invalid records method or way.\n");
-//        return;
-//    }
-//
-//    file = fopen(file_path, "w");
-//    if (file == NULL) {
-//        printf("Error opening the file for writing.\n");
-//    }
-//
-//    fprintf(file, "%s %s\n", sorting.sortingMethod, sorting.sortingWay);
-//    for (int i = 0; i < count; i++) {
-//        fprintf(file, "%s %d %d\n", records[i].name, records[i].square, records[i].nas);
-//    }
-//    fclose(file);
-//}
-
 
 void sortDataRec(char *file_path) {
     FILE *file;
@@ -248,36 +229,7 @@ void sortDataRec(char *file_path) {
     rename("temp_file.txt", file_path);
 }
 
-void sortByNas(char full_path[100]) {
-    FILE *file = fopen(full_path, "r");
 
-    int max_records = 100;
-    struct rec records[max_records];
-    int count = 0;
-
-    char line[100];
-    fgets(line, sizeof(line), file);
-
-    while (fgets(line, sizeof(line), file) && count < max_records) {
-        sscanf(line, "%s %d %d", records[count].name, &records[count].square, &records[count].nas);
-        count++;
-    }
-
-    fclose(file);
-
-    qsort(records, count, sizeof(struct rec), compare_nas_desc);
-
-    file = fopen(full_path, "w");
-    if (file == NULL) {
-        printf("Error opening the file for writing.\n");
-    }
-
-    fprintf(file, "square|desc\n");
-    for (int i = 0; i < count; i++) {
-        fprintf(file, "%s %d %d\n", records[i].name, records[i].square, records[i].nas);
-    }
-    fclose(file);
-}
 
 int main() {
     int fileChoice, actionFile;
@@ -595,7 +547,6 @@ int main() {
                                     changeDataSort(full_path, sorting);
 
                                     fclose(file);
-
 
                                     sortDataRec(full_path);
 

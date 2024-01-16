@@ -48,7 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "CMake Application.Laba1_1.executor": "Run",
+    "CMake Application.Laba1_1.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -58,7 +58,7 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/Works-KPI/Proga/Laba1.3",
+    "last_opened_file_path": "/home/Works-KPI/Proga/Laba1.2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,6 +91,7 @@
       <workItem from="1704579562208" duration="34000" />
       <workItem from="1704579917398" duration="8000" />
       <workItem from="1704843683918" duration="8000" />
+      <workItem from="1705432427168" duration="471000" />
     </task>
     <task id="LOCAL-00001" summary="fix Laba 1.1">
       <option name="closed" value="true" />

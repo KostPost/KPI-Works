@@ -1,71 +1,38 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
 
-
-
-
-int Numbers(char roman_np_value)
-{
-    switch(roman_np_value)
-    {
-        case 'M':
-            return 1000;
-
-        case 'D':
-            return 500;
-
-        case 'C':
-            return 100;
-
-        case 'L':
-            return 50;
-
-        case 'X':
-            return 10;
-
-        case 'V':
-            return 5;
-
-        case 'I':
-            return 1;
-        default :
-            return -1;
-    }
-}
 int main(){
+    long choice;
 
-    long sum = 0,choice;
-    char RimNumToConvert[CHAR_MAX];
     do
     {
         printf("1 - Convert num\n2 - Exit\n");
         scanf("%ld",&choice);
 
         if(choice == 1) {
+            int num;
 
-            printf("Enter a num to convert:");
-            scanf("%30s",RimNumToConvert);
-            sum = 0;
-            for (int i = 0; RimNumToConvert[i] != '\0'; i++) {
-                if(Numbers(RimNumToConvert[i]) == -1){
-                    printf("\nYou wrote wrong symbol\n");
-                    sum = 0;
-                    break;
+            do {
+                printf("Enter a number (1-3999): ");
+                scanf("%d", &num);
+
+                if (num <= 0 || num > 3999) {
+                    printf("Invalid input. Please enter a number between 1 and 3999.\n");
                 }
-                else if (Numbers(RimNumToConvert[i]) < Numbers(RimNumToConvert[i + 1])) {
-                    sum = sum - Numbers(RimNumToConvert[i]);
-                }
-                else {
-                    sum += Numbers(RimNumToConvert[i]);
+
+            } while (num <= 0 || num > 3999);
+
+            int values[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+            const char* romanNumerals[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+            printf("Roman Numeral: ");
+            for (int i = 0; i < sizeof(values) / sizeof(values[0]); ++i) {
+                while (num >= values[i]) {
+                    printf("%s", romanNumerals[i]);
+                    num -= values[i];
                 }
             }
 
-            if(sum != 0) {
-                printf("\nConverted num = %ld\n\n", sum);
-            }
-            sum = 0;
+            printf("\n");
         }
 
     }while(choice != 2);

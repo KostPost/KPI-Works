@@ -20,13 +20,13 @@ int main() {
 
         if (choice == 2) return 0;
 
-        printf("Enter length for a side");
+        printf("Enter length for a side: ");
         scanf("%lf", &aSide);
 
-        printf("Enter length for b side");
+        printf("Enter length for b side: ");
         scanf("%lf", &bSide);
 
-        printf("Enter length for c side");
+        printf("Enter length for c side: ");
         scanf("%lf", &cSide);
 
         if (aSide + bSide > cSide && aSide + cSide > bSide && bSide + cSide > aSide) {
@@ -68,7 +68,7 @@ int main() {
             printf("Median CM = %f\n", cMedian);
 
         } else {
-            printf("This triangle doesn't exist");
+            printf("This triangle doesn't exist\n");
         }
 
     } while (choice != 2);
