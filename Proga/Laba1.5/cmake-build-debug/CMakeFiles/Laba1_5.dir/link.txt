@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/Laba1_5.dir/main.c.o -o Laba1_5  -lm 

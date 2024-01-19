@@ -15,7 +15,7 @@ int main() {
 
     do {
 
-        printf("1 -Slar\n2 - Exit\n");
+        printf("1 - Slar\n2 - Exit\n");
         scanf("%d", &choice);
 
         switch (choice) {

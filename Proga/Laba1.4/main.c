@@ -134,7 +134,7 @@ void Sorting() {
     float newElement;
 
     do {
-        printf("Choice amount of elements");
+        printf("Choice amount of elements: ");
         scanf("%d", &choiceSize);
 
         size = choiceSize;
@@ -144,7 +144,7 @@ void Sorting() {
 
     int element = 0;
     do {
-        printf("Enter a num to Array:");
+        printf("Enter a num to Array: ");
         scanf("%f", &newElement);
         nums[element] = newElement;
         element++;

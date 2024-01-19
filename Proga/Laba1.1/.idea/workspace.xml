@@ -58,12 +58,13 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/Works-KPI/Proga/Laba1.2",
+    "last_opened_file_path": "/home/kostpost/KPI-Works/Proga/Laba1.2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "structure.view.defaults.are.configured": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -92,6 +93,8 @@
       <workItem from="1704579917398" duration="8000" />
       <workItem from="1704843683918" duration="8000" />
       <workItem from="1705432427168" duration="471000" />
+      <workItem from="1705524398714" duration="307000" />
+      <workItem from="1705567132832" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="fix Laba 1.1">
       <option name="closed" value="true" />
@@ -108,9 +111,10 @@
     <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="true" />
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
-    <isAutomaticReloadCMake value="true" />
+    <isAutomaticFoundErrors value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix Laba 1.1" />

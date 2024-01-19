@@ -58,7 +58,7 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/Works-KPI/Proga/Laba1.9",
+    "last_opened_file_path": "/home/kostpost/KPI-Works/Proga/Laba1.3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -70,6 +70,11 @@
 }]]></component>
   <component name="RunManager">
     <configuration name="Laba1_2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Laba1_2" TARGET_NAME="Laba1_2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Laba1_2" RUN_TARGET_NAME="Laba1_2">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -94,6 +99,8 @@
       <workItem from="1704579596870" duration="53000" />
       <workItem from="1704579925964" duration="57000" />
       <workItem from="1705432898969" duration="103000" />
+      <workItem from="1705567138429" duration="139000" />
+      <workItem from="1705567285075" duration="2627000" />
     </task>
     <servers />
   </component>
@@ -101,8 +108,9 @@
     <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="true" />
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
-    <isAutomaticReloadCMake value="true" />
+    <isAutomaticFoundErrors value="true" />
   </component>
 </project>

@@ -8,12 +8,12 @@ void Find_Y_3_1() {
 
     printf("\n\n---Find_Y_3_1---\n");
 
-    double x = 8, k = 3, epsilon;
-//    printf("Enter x:");
-//    scanf("%lf", &x);
-//
-//    printf("Enter k:");
-//    scanf("%lf", &k);
+    double x, k, epsilon;
+    printf("Enter x:");
+    scanf("%lf", &x);
+
+    printf("Enter k:");
+    scanf("%lf", &k);
 
     int choice;
     printf("Введіть як ви хочете ввести точність:\n");
@@ -192,7 +192,7 @@ int main() {
 
 
     do {
-        printf("1 - Find Y 3.1\n2 - Calendar 3.2\n3 - CubicEquation 3.3\n4 - Exit");
+        printf("1 - Find Y 3.1\n2 - Calendar 3.2\n3 - CubicEquation 3.3\n4 - Exit\n");
         scanf("%d", &choice);
 
         switch (choice) {

@@ -60,7 +60,7 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/Works-KPI/Proga/Laba1.5",
+    "last_opened_file_path": "/home/kostpost/KPI-Works/Proga/Laba1.4",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -98,6 +98,8 @@
       <workItem from="1704579755057" duration="143000" />
       <workItem from="1704580020876" duration="8000" />
       <workItem from="1704841984469" duration="290000" />
+      <workItem from="1705570015768" duration="69000" />
+      <workItem from="1705570104284" duration="76000" />
     </task>
     <servers />
   </component>
@@ -105,8 +107,9 @@
     <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="true" />
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
-    <isAutomaticReloadCMake value="true" />
+    <isAutomaticFoundErrors value="true" />
   </component>
 </project>

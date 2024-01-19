@@ -7,8 +7,7 @@
 #define MAX_FILES 100
 #define MAX_ENTRIES 100
 #define MAX_LINES 1000
-#define MAX_RECORDS 100
-#define MAX_NAME_LENGTH 40
+
 
 struct rec {
     char name[40];
@@ -20,10 +19,8 @@ struct sort {
     char sortingMethod[40];
     char sortingWay[40];
 };
-//char *tempFilePath = "/home/Works-KPI/Proga/Laba1.9/temp.txt";
-//char *path = "/home/Works-KPI/Proga/Laba1.9/data";
 
-char path[100] = "/home/Works-KPI/Proga/Laba1.9/data";
+char *path = "/home/kostpost/KPI-Works/Proga/Laba1.9/data";
 
 int compare_name_asc(const void *a, const void *b) {
     return strcmp(((struct rec *) a)->name, ((struct rec *) b)->name);
@@ -40,7 +37,6 @@ int compare_square_desc(const void *a, const void *b) {
 int compare_square_asc(const void *a, const void *b) {
     return ((struct rec *) a)->square - ((struct rec *) b)->square;
 }
-
 
 int compare_nas_desc(const void *a, const void *b) {
     return ((struct rec *) b)->nas - ((struct rec *) a)->nas;
@@ -74,9 +70,8 @@ void printAllData(char *file_path) {
 
     fclose(file);
 
-    // Print the read records
     for (int i = 0; i < count; i++) {
-        printf("%s %d %d\n", records[i].name, records[i].square, records[i].nas);
+        printf("Name: %s\tSquare: %d\tNas: %d\n", records[i].name, records[i].square, records[i].nas);
     }
 }
 
@@ -91,14 +86,12 @@ void changeDataSort(char *file_path, struct sort newData) {
     FILE *inputFile, *tempFile;
     char line[100];
 
-    // Open the input file for reading
     inputFile = fopen(file_path, "r");
     if (inputFile == NULL) {
         printf("Error opening the file.\n");
         return;
     }
 
-    // Open a temporary file for writing
     tempFile = fopen("temp_file.txt", "w");
     if (tempFile == NULL) {
         printf("Error creating temporary file.\n");
@@ -106,19 +99,15 @@ void changeDataSort(char *file_path, struct sort newData) {
         return;
     }
 
-    // Write the new sorting information to the temporary file
     fprintf(tempFile, "%s %s\n", newData.sortingMethod, newData.sortingWay);
 
-    // Copy the remaining content from the input file to the temporary file
     while (fgets(line, sizeof(line), inputFile) != NULL) {
         fprintf(tempFile, "%s", line);
     }
 
-    // Close the input and temporary files
     fclose(inputFile);
     fclose(tempFile);
 
-    // Replace the original file with the temporary file
     remove(file_path);
     rename("temp_file.txt", file_path);
 
@@ -127,14 +116,12 @@ void changeDataSort(char *file_path, struct sort newData) {
     FILE *outputFile;
     int lineNumber = 0;
 
-    // Open the input file for reading
     inputFile = fopen(file_path, "r");
     if (inputFile == NULL) {
         printf("Error opening the file for reading.\n");
         return;
     }
 
-    // Open a temporary file for writing
     outputFile = fopen("temp_file.txt", "w");
     if (outputFile == NULL) {
         printf("Error creating temporary file.\n");
@@ -142,20 +129,16 @@ void changeDataSort(char *file_path, struct sort newData) {
         return;
     }
 
-    // Read lines from the input file and skip the second line
     while (fgets(line, sizeof(line), inputFile) != NULL) {
         lineNumber++;
-        // Skip the second line
         if (lineNumber != 2) {
             fprintf(outputFile, "%s", line);
         }
     }
 
-    // Close the input and output files
     fclose(inputFile);
     fclose(outputFile);
 
-    // Replace the original file with the temporary file
     remove(file_path);
     rename("temp_file.txt", file_path);
 
@@ -181,7 +164,7 @@ void sortDataRec(char *file_path) {
     int count = 0;
     char line[100];
 
-    fgets(line, sizeof(line), file); // Read the header and discard
+    fgets(line, sizeof(line), file);
 
     while (fgets(line, sizeof(line), file) && count < max_records) {
         sscanf(line, "%s %d %d", records[count].name, &records[count].square, &records[count].nas);
@@ -313,12 +296,15 @@ int main() {
                     if (count > 0) {
 
                         printf("Available text files:\n");
-                        for (int i = 0; i < count; ++i) {
+                        int i = 0;
+                        for (; i < count; ++i) {
                             printf("%d. %s\n", i + 1, files[i]);
                         }
                         int choiceFile;
-                        printf("Enter the file number you want to select: ");
-                        scanf("%d", &choiceFile);
+                        do {
+                            printf("Enter the file number you want to select: ");
+                            scanf("%d", &choiceFile);
+                        } while (choiceFile < 1 || choiceFile > i);
 
                         char full_path[256];
                         char *txtFile = files[choiceFile - 1];
@@ -326,10 +312,6 @@ int main() {
                         strcpy(full_path, path);
                         strcat(full_path, "/");
                         strcat(full_path, txtFile);
-
-
-                        //sortDataRec(full_path);
-
 
                         do {
                             printf("\n1 - Add data to file\n"
@@ -442,8 +424,6 @@ int main() {
                                     } else {
                                         printf("Invalid record number.\n");
                                     }
-
-
                                     break;
                                 }
 
@@ -461,8 +441,6 @@ int main() {
                                     printf("3. Population\n");
                                     printf("Your choice: ");
                                     scanf("%d", &choice);
-
-
 
                                     switch (choice) {
                                         case 1: {
@@ -550,19 +528,15 @@ int main() {
 
                                     sortDataRec(full_path);
 
-
                                     break;
                                 }
 
                                 case 5: {
-
-                                    file;
                                     struct sort sorting;
                                     file = fopen(full_path, "r");
                                     fscanf(file, "%39s %39s", sorting.sortingMethod, sorting.sortingWay);
                                     fclose(file);
 
-                                   // printf("%39s %39s", sorting.sortingMethod, sorting.sortingWay);
                                     if (strcmp(sorting.sortingMethod, "-") == 0) {
                                         printf("\nSorting Method is an empty string.\nPlease sort file before insert data\n");
                                         break;
@@ -690,9 +664,8 @@ int main() {
                     if (entry->d_type == DT_REG) {
                         file_count++;
                         if (file_count == choice) {
-                            char filepath[100];  // File path
+                            char filepath[100];
                             snprintf(filepath, sizeof(filepath), "%s/%s", path, entry->d_name);
-                            // Deleting the file
                             if (remove(filepath) != 0) {
                                 perror("Error deleting the file");
                                 return EXIT_FAILURE;

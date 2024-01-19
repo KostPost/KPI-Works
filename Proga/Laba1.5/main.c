@@ -7,8 +7,6 @@
 
 
 char **generateRandomStrings(char **list, int n_str, int str_size) {
-
-
     if (list == NULL) {
         return NULL;
     }
@@ -48,7 +46,7 @@ int main() {
             case 1: {
                 int n_str, str_size;
 
-                printf("Enter the number of strings: ");
+                printf("Enter the amount of strings: ");
                 scanf("%d", &n_str);
 
                 printf("Enter the size of each string: ");

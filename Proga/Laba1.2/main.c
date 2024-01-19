@@ -1,12 +1,48 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <slcurses.h>
+#include <stdbool.h>
+#include <string.h>
 
+double get_valid_double(char side) {
+    double number = 0;
+    char input[50];
+    int success;
+
+    do {
+        success = 1;
+        printf("Enter length for %c side: ", side);
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            perror("Input error");
+            exit(EXIT_FAILURE);
+        }
+
+        if (sscanf(input, "%lf", &number) != 1 || strchr(input, '\n') == NULL) {
+            success = 0;
+        }
+        for (int i = 0; input[i] != '\0'; ++i) {
+            if (!isdigit(input[i]) && input[i] != '-' && input[i] != '+' && input[i] != '.' && input[i] != '\n') {
+                success = 0;
+                break;
+            }
+        }
+        if (!success) {
+            printf("Invalid input.\n");
+        }
+
+    } while (!success);
+
+    return number;
+}
 
 int main() {
-    double aSide, bSide = 0, cSide = 0;
+    double aSide, bSide, cSide;
     double square;
     double perimeter, semiPerimeter;
     int choice;
+
     do {
         do {
 
@@ -20,14 +56,11 @@ int main() {
 
         if (choice == 2) return 0;
 
-        printf("Enter length for a side: ");
-        scanf("%lf", &aSide);
+        aSide = get_valid_double('A');
 
-        printf("Enter length for b side: ");
-        scanf("%lf", &bSide);
+        bSide = get_valid_double('B');
 
-        printf("Enter length for c side: ");
-        scanf("%lf", &cSide);
+        cSide = get_valid_double('C');
 
         if (aSide + bSide > cSide && aSide + cSide > bSide && bSide + cSide > aSide) {
 
