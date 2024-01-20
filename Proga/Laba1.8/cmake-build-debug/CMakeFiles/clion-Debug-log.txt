@@ -1,4 +1,10 @@
-/snap/clion/261/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/261/bin/ninja/linux/x64/ninja -G Ninja -S /home/Works-KPI/Proga/Laba1.8 -B /home/Works-KPI/Proga/Laba1.8/cmake-build-debug
--- Configuring done (0.0s)
+/app/extra/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/app/extra/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/kostpost/KPI-Works/Proga/Laba1.8 -B /home/kostpost/KPI-Works/Proga/Laba1.8/cmake-build-debug
+-- The C compiler identification is GNU 13.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/Works-KPI/Proga/Laba1.8/cmake-build-debug
+-- Build files have been written to: /home/kostpost/KPI-Works/Proga/Laba1.8/cmake-build-debug

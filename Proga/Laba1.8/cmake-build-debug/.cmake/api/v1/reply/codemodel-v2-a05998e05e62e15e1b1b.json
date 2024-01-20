@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/Works-KPI/Proga/Laba1.8/cmake-build-debug",
-		"source" : "/home/Works-KPI/Proga/Laba1.8"
+		"build" : "/home/kostpost/KPI-Works/Proga/Laba1.8/cmake-build-debug",
+		"source" : "/home/kostpost/KPI-Works/Proga/Laba1.8"
 	},
 	"version" : 
 	{

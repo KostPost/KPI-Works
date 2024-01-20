@@ -1,46 +1,118 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <math.h>
+#include <complex.h>
 
-// Функція для обчислення комплексного опору
-void calculateImpedance(double frequency, double R1, double R2, double L, double C, double resonanceFrequency) {
-    double omega = 2 * M_PI * frequency;
+#ifndef M_PI
+#define M_PI (3.14159265358979323846)
+#endif
 
-    // Реактивний опір від конденсатора та котушки
-    double reactance_capacitance = 1.0 / (omega * C);
-    double reactance_inductance = omega * L;
-
-    // Реальна та уявна частини опору
-    double real_part = R1 + R2;
-    double imaginary_part = reactance_inductance - reactance_capacitance;
-
-    // Обчислення опору при резонансі
-    if (frequency == resonanceFrequency) {
-        printf("At resonance:\n");
-        real_part = R1 + R2;
-        imaginary_part = 0;
-    }
-
-    // Виведення результатів обчислення
-    printf("Frequency: %.2lf Hz\n", frequency);
-    printf("Impedance (Real): %.2lf Ohms\n", real_part);
-    printf("Impedance (Imaginary): %.2lf Ohms\n", imaginary_part);
-    printf("Total Impedance: %.2lf Ohms\n", sqrt(real_part * real_part + imaginary_part * imaginary_part));
+double addReal(double a, double b) {
+    return a + b;
 }
 
-int main() {
-    double R1 = 100; // Опір R1 (в Омах)
-    double R2 = 150; // Опір R2 (в Омах)
-    double L = 10;   // Індуктивність L (в мГн)
-    double C = 10;   // Ємність C (в мкФ)
-    double resonanceFrequency = 1.0 / (2 * M_PI * sqrt(L * 0.001 * C * 0.000001)); // Резонансна частота (в Гц)
+double addImag(double a, double b) {
+    return a + b;
+}
 
-    // Параметри для тестування на різних частотах
-    double frequencies[] = { resonanceFrequency * 0.5, resonanceFrequency, resonanceFrequency * 1.5 };
+void fun1(double R, double L, double C, double f_min, double f_max, double df) {
+    double f0 = 1 / (2 * M_PI * sqrt(L * C));
+    printf("\nf0: %fHz\n\n", f0);
 
-    for (int i = 0; i < 3; ++i) {
-        calculateImpedance(frequencies[i], R1, R2, L * 0.001, C * 0.000001, resonanceFrequency);
-        printf("\n");
+    for (double f = f_min; f <= f_max; f += df) {
+        double w = 2 * M_PI * f;
+        double jwL_real = 0;
+        double jwL_imag = -w * L;
+        double one_over_jwC_real = 0;
+        double one_over_jwC_imag = 1 / (w * C);
+
+        double Z_real = addReal(addReal(R, jwL_real), one_over_jwC_real);
+        double Z_imag = addImag(jwL_imag, one_over_jwC_imag);
+
+        printf("Current Z is %e + %ei at f = %.5fHz\n", Z_real, Z_imag, f);
     }
+}
+
+void fun2(double R, double L, double C, double f_min, double f_max, double df) {
+
+    double complex Z;
+
+    for (double f = f_min; f <= f_max; f += df) {
+        Z = R + (I * 2 * M_PI * f * L) / C;
+
+        if (isfinite(cimag(Z))) {
+            printf("f = %f Hz, Z = %f + %f j\n", f, creal(Z), cimag(Z));
+        } else {
+            printf("f = %f Hz, Z = %f\n", f, creal(Z));
+        }
+    }
+}
+
+
+int main() {
+    double R, L, C, f_min, f_max, df;
+
+    int choice;
+    do {
+        printf("Enter 1 - 4\n");
+        scanf("%d", &choice);
+
+        getchar();
+        if (choice == 1 || choice == 2) {
+            printf("Enter R: ");
+            scanf("%lf", &R);
+
+            printf("Enter L: ");
+            scanf("%lf", &L);
+
+            printf("Enter C: ");
+            scanf("%lf", &C);
+
+            printf("Enter fmin (Hz): ");
+            scanf("%lf", &f_min);
+
+            printf("Enter fmax (Hz): ");
+            scanf("%lf", &f_max);
+
+            printf("Enter df: ");
+            scanf("%lf", &df);
+
+            if (choice == 1) {
+                printf("qwe");
+                fun1(R, L, C, f_min, f_max, df);
+            } else {
+                fun2(R, L, C, f_min, f_max, df);
+            }
+        } else if (choice == 3 || choice == 4) {
+            double frequency, resistance1, resistance2, inductance, capacitance;
+
+            printf("Enter frequency (in radians): ");
+            scanf("%lf", &frequency);
+
+            printf("Enter resistance1: ");
+            scanf("%lf", &resistance1);
+
+            printf("Enter resistance2: ");
+            scanf("%lf", &resistance2);
+
+            printf("Enter inductance: ");
+            scanf("%lf", &inductance);
+
+            printf("Enter capacitance: ");
+            scanf("%lf", &capacitance);
+
+            double complex impedance;
+
+            if (choice == 1) {
+                impedance = 1 / (resistance1 + resistance2 + 1j * frequency * inductance) * 1 / capacitance;
+            } else {
+                impedance = 1 / (resistance1 + resistance2 + frequency * inductance * capacitance) * 1 / capacitance;
+            }
+
+            printf("Complex impedance: %g\n", impedance);
+        }
+
+
+    } while (choice != 5);
 
     return 0;
 }
